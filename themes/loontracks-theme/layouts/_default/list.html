@@ -1,0 +1,114 @@
+{{ define "main" }}
+<div class="content-list">
+    <div class="container">
+        <header class="list-header">
+            <h1>{{ .Title }}</h1>
+            {{ if .Description }}
+            <p class="list-description">{{ .Description }}</p>
+            {{ end }}
+
+            {{ if eq .Section "blog" }}
+            <div class="list-meta">
+                <p>{{ len .Pages }} articles published</p>
+            </div>
+            {{ else if eq .Section "forecasts" }}
+            <div class="list-meta">
+                <p>{{ len .Pages }} forecasts available</p>
+            </div>
+            {{ end }}
+        </header>
+
+        <!-- Filter/Sort Options -->
+        <div class="list-controls">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search {{ .Section }}..." />
+            </div>
+
+            {{ if .Params.categories }}
+            <div class="filter-categories">
+                <select id="category-filter">
+                    <option value="">All Categories</option>
+                    {{ range .Site.Taxonomies.categories }}
+                    <option value="{{ .Page.Title }}">{{ .Page.Title }}</option>
+                    {{ end }}
+                </select>
+            </div>
+            {{ end }}
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid" id="content-grid">
+            {{ range .Paginator.Pages }}
+            <article class="content-card" data-categories="{{ delimit .Params.categories "," }}">
+                {{ if .Params.featured_image }}
+                <div class="card-image">
+                    <img src="{{ .Params.featured_image }}" alt="{{ .Title }}">
+                </div>
+                {{ end }}
+
+                <div class="card-content">
+                    <header class="card-header">
+                        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+
+                        <div class="card-meta">
+                            <time datetime="{{ .Date.Format "2006-01-02" }}">
+                                {{ .Date.Format "January 2, 2006" }}
+                            </time>
+
+                            {{ if .Params.categories }}
+                            <div class="categories">
+                                {{ range .Params.categories }}
+                                <span class="category">{{ . }}</span>
+                                {{ end }}
+                            </div>
+                            {{ end }}
+
+                            {{ if eq .Section "forecasts" }}
+                            {{ if .Params.forecast_type }}
+                            <span class="forecast-type">{{ .Params.forecast_type }}</span>
+                            {{ end }}
+                            {{ end }}
+                        </div>
+                    </header>
+
+                    <div class="card-summary">
+                        <p>{{ .Summary }}</p>
+                    </div>
+
+                    <footer class="card-footer">
+                        <a href="{{ .Permalink }}" class="read-more">
+                            {{ if eq .Section "forecasts" }}View Forecast{{ else }}Read Article{{ end }} →
+                        </a>
+
+                        {{ if .Params.tags }}
+                        <div class="tags">
+                            {{ range first 3 .Params.tags }}
+                            <span class="tag">{{ . }}</span>
+                            {{ end }}
+                        </div>
+                        {{ end }}
+                    </footer>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+
+        <!-- Pagination -->
+        {{ if gt .Paginator.TotalPages 1 }}
+        <nav class="pagination">
+            {{ if .Paginator.HasPrev }}
+            <a href="{{ .Paginator.Prev.URL }}" class="pagination-link prev">← Previous</a>
+            {{ end }}
+
+            <span class="pagination-info">
+                Page {{ .Paginator.PageNumber }} of {{ .Paginator.TotalPages }}
+            </span>
+
+            {{ if .Paginator.HasNext }}
+            <a href="{{ .Paginator.Next.URL }}" class="pagination-link next">Next →</a>
+            {{ end }}
+        </nav>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

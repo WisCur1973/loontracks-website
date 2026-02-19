@@ -1,0 +1,57 @@
+baseURL: 'https://www.loontracks.com'
+languageCode: 'en-us'
+title: 'Loon Tracks'
+theme: 'loontracks-theme'
+
+# Site parameters
+params:
+  description: "Market intelligence and forecast analysis"
+  author: "Loon Tracks"
+  email: "info@loontracks.com"
+
+  # Social and newsletter
+  newsletter_signup: true
+  substack_url: "https://your-substack.substack.com"
+
+  # SEO
+  keywords: "market analysis, forecasting, mining industry, election models"
+
+  # Analytics (add later)
+  # google_analytics: "G-XXXXXXXXXX"
+
+# Menu structure
+menu:
+  main:
+    - name: "Home"
+      url: "/"
+      weight: 10
+    - name: "Blog"
+      url: "/blog/"
+      weight: 20
+    - name: "Mine Forecasts"
+      url: "/forecasts/"
+      weight: 30
+    - name: "Archive"
+      url: "/archive/"
+      weight: 40
+    - name: "About"
+      url: "/about/"
+      weight: 50
+
+# Content types
+taxonomies:
+  tag: tags
+  category: categories
+
+# Pagination
+paginate: 10
+
+# Markdown settings
+markup:
+  goldmark:
+    renderer:
+      unsafe: true  # Allow HTML in markdown
+
+# Build settings
+build:
+  writeStats: true

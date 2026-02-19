@@ -1,0 +1,139 @@
+{{ define "main" }}
+<article class="single-post">
+    <div class="container">
+        <header class="post-header">
+            <h1>{{ .Title }}</h1>
+
+            <div class="post-meta">
+                <div class="meta-primary">
+                    <time datetime="{{ .Date.Format "2006-01-02" }}">
+                        {{ .Date.Format "January 2, 2006" }}
+                    </time>
+
+                    {{ if .Params.author }}
+                    <span class="author">by {{ .Params.author }}</span>
+                    {{ end }}
+
+                    {{ if eq .Section "forecasts" }}
+                    {{ if .Params.forecast_type }}
+                    <span class="forecast-type">{{ .Params.forecast_type }}</span>
+                    {{ end }}
+                    {{ end }}
+                </div>
+
+                {{ if or .Params.categories .Params.tags }}
+                <div class="meta-secondary">
+                    {{ if .Params.categories }}
+                    <div class="categories">
+                        {{ range .Params.categories }}
+                        <a href="{{ "/categories/" | relURL }}{{ . | urlize }}" class="category">{{ . }}</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+
+                    {{ if .Params.tags }}
+                    <div class="tags">
+                        {{ range .Params.tags }}
+                        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+
+            {{ if .Params.summary }}
+            <div class="post-summary">
+                <p>{{ .Params.summary }}</p>
+            </div>
+            {{ end }}
+        </header>
+
+        {{ if .Params.featured_image }}
+        <div class="featured-image">
+            <img src="{{ .Params.featured_image }}" alt="{{ .Title }}">
+        </div>
+        {{ end }}
+
+        <!-- Forecast Dashboard Integration -->
+        {{ if eq .Section "forecasts" }}
+        {{ if .Params.dashboard_html }}
+        <div class="forecast-dashboard">
+            <h2>Interactive Dashboard</h2>
+            <div class="dashboard-container">
+                {{ .Params.dashboard_html | safeHTML }}
+            </div>
+        </div>
+        {{ end }}
+
+        {{ if .Params.dashboard_image }}
+        <div class="forecast-image">
+            <h2>Forecast Summary</h2>
+            <img src="{{ .Params.dashboard_image }}" alt="Forecast Dashboard" class="dashboard-img">
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <div class="post-content">
+            {{ .Content }}
+        </div>
+
+        <!-- Forecast-specific footer -->
+        {{ if eq .Section "forecasts" }}
+        <div class="forecast-footer">
+            <div class="forecast-disclaimer">
+                <h3>Methodology & Disclaimer</h3>
+                <p>This forecast is based on quantitative analysis of market data, shipping patterns,
+                   and operational indicators. Probabilities reflect current market conditions and are
+                   subject to change. <a href="/methodology/">Learn more about our methodology</a>.</p>
+            </div>
+
+            {{ if .Params.data_sources }}
+            <div class="data-sources">
+                <h3>Data Sources</h3>
+                <ul>
+                    {{ range .Params.data_sources }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <footer class="post-footer">
+            <div class="post-navigation">
+                {{ if .PrevInSection }}
+                <div class="nav-previous">
+                    <a href="{{ .PrevInSection.Permalink }}" rel="prev">
+                        <span class="nav-label">← Previous</span>
+                        <span class="nav-title">{{ .PrevInSection.Title }}</span>
+                    </a>
+                </div>
+                {{ end }}
+
+                {{ if .NextInSection }}
+                <div class="nav-next">
+                    <a href="{{ .NextInSection.Permalink }}" rel="next">
+                        <span class="nav-label">Next →</span>
+                        <span class="nav-title">{{ .NextInSection.Title }}</span>
+                    </a>
+                </div>
+                {{ end }}
+            </div>
+
+            <div class="share-links">
+                <h3>Share This {{ if eq .Section "forecasts" }}Forecast{{ else }}Article{{ end }}</h3>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}"
+                       target="_blank" class="share-twitter">Twitter</a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink }}&title={{ .Title }}"
+                       target="_blank" class="share-linkedin">LinkedIn</a>
+                    <a href="mailto:?subject={{ .Title }}&body=Check out this analysis: {{ .Permalink }}"
+                       class="share-email">Email</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</article>
+{{ end }}
