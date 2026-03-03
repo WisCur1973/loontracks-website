@@ -1,0 +1,175 @@
+baseURL: 'https://loontracks.com'
+languageCode: 'en-us'
+title: 'LoonTracks - Probability Models & Data Analysis'
+theme: 'PaperMod'
+
+# Performance and build optimizations
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# Minification for Cloudflare Pages
+minify:
+  disableXML: true
+  minifyOutput: true
+
+# Output formats
+outputFormats:
+  JSON:
+    mediaType: "application/json"
+    baseName: "feed"
+    isPlainText: true
+
+# Content settings
+enableEmoji: true
+hasCJKLanguage: false
+
+# Pagination
+pagination:
+  pagerSize: 10
+
+# Menu configuration
+menus:
+  main:
+    - name: "Home"
+      url: "/"
+      weight: 10
+    - name: "Posts"
+      url: "/posts/"
+      weight: 20
+    - name: "Models"
+      url: "/models/"
+      weight: 30
+    - name: "About"
+      url: "/about/"
+      weight: 40
+
+# PaperMod theme parameters
+params:
+  env: production
+  title: "LoonTracks"
+  description: "Probability models and data analysis for the upper midwest"
+  keywords: ["probability models", "data analysis", "forecasting", "statistics", "Minnesota", "wildlife"]
+  author: "Daniel Winings"
+
+  # Theme appearance
+  defaultTheme: "light"
+  disableThemeToggle: false
+
+  # Home page
+  homeInfoParams:
+    Title: "Welcome to LoonTracks"
+    Content: "Probability models and data analysis exploring patterns in the upper midwest. Featuring wildlife harvest forecasting, statistical modeling, and data-driven insights."
+
+  # Social and contact
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/danielwinings"
+    - name: "email"
+      url: "mailto:daniel@loontracks.com"
+
+  # Search
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+  # Analytics and performance
+  analytics:
+    google:
+      SiteVerificationTag: ""
+
+  # Content features
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowToc: true
+  TocOpen: false
+
+  # Comments
+  comments: false
+
+  # Cover image
+  cover:
+    linkFullImages: true
+
+  # Edit post
+  editPost:
+    disabled: true
+
+# Markup configuration for code highlighting
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: github
+
+# Taxonomies
+taxonomies:
+  category: categories
+  tag: tags
+
+# Related content
+related:
+  includeNewer: true
+  indices:
+    - name: keywords
+      weight: 100
+    - name: tags
+      weight: 80
+    - name: categories
+      weight: 60
+  threshold: 80
+  toLower: false
+
+# Privacy settings for GDPR compliance
+privacy:
+  googleAnalytics:
+    disable: false
+    anonymizeIP: true
+    respectDoNotTrack: true
+  x:
+    disable: false
+    enableDNT: true
+  vimeo:
+    disable: false
+    enableDNT: true
+  youtube:
+    disable: false
+    privacyEnhanced: true
+
+# Security
+security:
+  enableInlineShortcodes: false
+  exec:
+    allow:
+      - ^dart-sass-embedded$
+      - ^go$
+      - ^npx$
+      - ^postcss$
+    osEnv:
+      - (?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$
+
+# Caching for build performance
+caches:
+  getjson:
+    maxAge: "10s"
+  getcsv:
+    maxAge: "10s"
+  images:
+    maxAge: "1h"
+  assets:
+    maxAge: "1h"

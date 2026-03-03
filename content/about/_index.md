@@ -1,49 +1,58 @@
 ---
-title: "About Loon Tracks"
-description: "Professional market intelligence and forecasting analysis for mining, shipping, and political markets."
+title: "About LoonTracks"
+description: "Learn about our approach to probability modeling and data analysis for wildlife forecasting in the upper midwest."
 ---
 
-# About Loon Tracks
+# About LoonTracks
 
-Loon Tracks provides data-driven market intelligence and forecasting analysis, specializing in mining operations, shipping projections, and political risk assessment. Our quantitative models combine industry expertise with rigorous statistical analysis to deliver actionable insights for decision makers.
+LoonTracks specializes in developing probability models and conducting data analysis focused on wildlife patterns and harvest forecasting in the upper midwest, particularly Minnesota.
 
-## Our Methodology
+## Our Mission
 
-Our forecasting approach integrates multiple data sources and analytical techniques:
+We believe that data-driven insights can improve understanding of wildlife populations and help inform conservation and management decisions. Through statistical modeling and predictive analytics, we aim to:
 
-### Mining Forecasts
-- **Operational Analysis**: Current capacity utilization and expansion feasibility assessments
-- **Market Conditions**: Supply/demand dynamics, inventory levels, and seasonal factors
-- **Risk Assessment**: Probability modeling for mine reopening and curtailment scenarios
-- **Port Intelligence**: Physical stockpile observations and shipping pattern analysis
+- **Build accurate forecasting models** for wildlife harvest patterns
+- **Identify key environmental factors** that influence wildlife populations
+- **Provide accessible tools** for exploring data and predictions
+- **Support evidence-based decision making** in wildlife management
 
-### Shipping Projections
-- **Great Lakes Analysis**: Seasonal shipping patterns and port capacity modeling
-- **Tonnage Forecasting**: Quantitative projections based on production and inventory data
-- **Logistics Intelligence**: Real-time port operations and vessel movement tracking
+## Methodology
 
-### Political Models *(Coming Soon)*
-- **Election Forecasting**: Probabilistic models for electoral outcomes
-- **Policy Risk Assessment**: Quantitative analysis of regulatory and legislative impacts
-- **Market Implications**: Translation of political developments into market consequences
+Our approach combines:
 
-## Data Sources
+### Statistical Modeling
+- Time series analysis of 26+ years of Minnesota DNR harvest data
+- Machine learning techniques for pattern recognition
+- Bayesian methods for uncertainty quantification
 
-Our analysis draws from multiple authoritative sources:
-- **AISI Great Lakes Steel Production**: Weekly production data for demand trend analysis
-- **Port Operational Data**: Physical dock observations and inventory assessments
-- **Industry Reports**: Mine operational status and capacity utilization data
-- **Economic Indicators**: Regional and national economic data integration
-- **Proprietary Observations**: On-ground intelligence and industry expertise
+### Data Integration
+- Historical harvest records from Minnesota Department of Natural Resources
+- Environmental and climate data
+- Geographic and habitat information
 
-## Professional Background
+### Transparency
+- Open methodology and reproducible analysis
+- Clear documentation of model assumptions and limitations
+- Regular validation and performance assessment
 
-Loon Tracks combines quantitative analysis expertise with deep industry knowledge to provide reliable market intelligence. Our models are designed for professional use by industry participants, investors, and policy makers who require accurate, timely, and actionable market insights.
+## Focus Areas
 
-## Transparency & Accuracy
+### Wildlife Harvest Forecasting
+Primary focus on bear, deer, and turkey harvest prediction using comprehensive historical data and environmental variables.
 
-We believe in transparent methodology and acknowledge the inherent uncertainty in forecasting. Our probability-based approach provides clear confidence intervals and explicitly states the assumptions underlying our analysis. We continuously validate our models against actual outcomes and adjust our methodology based on performance feedback.
+### Environmental Impact Analysis
+Understanding how weather patterns, habitat changes, and other environmental factors influence wildlife populations and harvest success.
+
+### Interactive Visualization
+Creating accessible tools for exploring data patterns and model predictions.
 
 ---
 
-*For methodology questions or professional inquiries, contact us at info@loontracks.com*
+## Contact
+
+For questions about our methodology, collaboration opportunities, or data requests, please reach out:
+
+**Email:** daniel@loontracks.com
+**GitHub:** [@danielwinings](https://github.com/danielwinings)
+
+*Building better predictions through data science.*
