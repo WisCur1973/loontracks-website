@@ -1,4 +1,10 @@
 # Security and performance headers for Cloudflare Pages
+
+# Dashboard model files - allow embedding and scripts
+/models/*
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval'
+
 /*
   # Security headers
   X-Frame-Options: DENY
