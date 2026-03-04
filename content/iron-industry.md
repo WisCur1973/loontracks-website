@@ -14,7 +14,7 @@ layout: "dashboard"
 
 .dashboard-frame {
   width: 100%;
-  height: 80vh;
+  height: 200vh;
   border: none;
   display: block;
 }
@@ -37,9 +37,9 @@ body {
 <div class="dashboard-title">Minnesota Iron Industry Forecast</div>
 
 <div class="dashboard-container">
-  <iframe src="/models/unified_mine_forecast_dashboard.html" class="dashboard-frame" scrolling="yes"></iframe>
+  <iframe src="/models/unified_mine_forecast_dashboard.html" class="dashboard-frame" scrolling="no"></iframe>
 </div>
 
 <div class="dashboard-container" style="margin-top: 20px;">
-  <iframe src="/models/port_forecasts_dashboard.html" class="dashboard-frame" scrolling="yes"></iframe>
+  <iframe src="/models/port_forecasts_dashboard.html" class="dashboard-frame" scrolling="no"></iframe>
 </div>
