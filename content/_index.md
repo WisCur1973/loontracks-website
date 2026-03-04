@@ -1,30 +1,99 @@
 ---
-title: "LoonTracks - Probability Models & Data Analysis"
-description: "Exploring patterns and building predictive models for the upper midwest through data analysis and statistical forecasting."
+title: "Loon Tracks"
+description: "Data analysis and probability models for the upper midwest"
 ---
 
-# Welcome to LoonTracks
+<style>
+.homepage-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  max-width: 100vw;
+  margin: 0;
+  height: 500px;
+  padding: 5px;
+}
 
-Welcome to LoonTracks, where we explore patterns in the upper midwest through probability models and data analysis. This site focuses on wildlife harvest forecasting, statistical modeling, and data-driven insights for Minnesota and surrounding regions.
+.grid-box {
+  border-radius: 12px;
+  padding: 30px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-## What You'll Find Here
+.grid-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
-### 📊 **Probability Models**
-Advanced statistical models for predicting wildlife harvest patterns, incorporating decades of Minnesota DNR data and environmental factors.
+.iron-industry {
+  background: linear-gradient(135deg, #4a5568, #2d3748);
+}
 
-### 🦌 **Wildlife Forecasting**
-Specialized forecasts for bear, deer, and turkey harvest in Minnesota, using 26+ years of historical data to identify trends and predict future outcomes.
+.hunting {
+  background: linear-gradient(135deg, #38a169, #2f855a);
+}
 
-### 📈 **Data Analysis**
-Deep dives into environmental and harvest data, exploring correlations, seasonal patterns, and long-term trends affecting wildlife populations.
+.blog {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  background: linear-gradient(135deg, #3182ce, #2c5282);
+  font-size: 24px;
+  flex-direction: column;
+  gap: 15px;
+}
 
-### 🎯 **Interactive Models**
-Explore predictive models with interactive visualizations and real-time forecasting tools.
+.elections {
+  background: linear-gradient(135deg, #d69e2e, #b7791f);
+}
 
----
+.disease {
+  background: linear-gradient(135deg, #e53e3e, #c53030);
+}
 
-## Latest Updates
+.site-title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
 
-Check out the [latest posts](/posts/) for recent analysis and model updates, or explore the [models section](/models/) for interactive forecasting tools.
+.blog-subtitle {
+  font-size: 16px;
+  opacity: 0.9;
+  font-weight: normal;
+}
+</style>
 
-*Building better predictions through data science.*
+<div class="homepage-grid">
+  <a href="/iron-industry/" class="grid-box iron-industry">
+    MN Iron Industry
+  </a>
+
+  <a href="https://wiscur.substack.com" class="grid-box blog">
+    <div>News & Opinion</div>
+    <div class="blog-subtitle">Latest analysis and insights</div>
+  </a>
+
+  <a href="/hunting/" class="grid-box hunting">
+    Hunting
+  </a>
+
+  <a href="/elections/" class="grid-box elections">
+    Elections
+  </a>
+
+  <a href="/disease/" class="grid-box disease">
+    Measles & Disease
+  </a>
+</div>

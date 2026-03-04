@@ -1,6 +1,6 @@
 baseURL: 'https://loontracks.com'
 languageCode: 'en-us'
-title: 'LoonTracks - Probability Models & Data Analysis'
+title: 'LoonTracks: Probability Models for the Upper Midwest'
 theme: 'PaperMod'
 
 # Performance and build optimizations
@@ -58,9 +58,6 @@ params:
   disableThemeToggle: false
 
   # Home page
-  homeInfoParams:
-    Title: "Welcome to LoonTracks"
-    Content: "Probability models and data analysis exploring patterns in the upper midwest. Featuring wildlife harvest forecasting, statistical modeling, and data-driven insights."
 
   # Social and contact
   socialIcons:

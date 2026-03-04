@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minnesota Port Forecasts: Speedometer Gauges</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1f2937;
+            margin: 0 0 10px 0;
+        }
+
+        .gauges-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 30px;
+        }
+
+        .gauge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gauge-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .gauge-svg {
+            margin-bottom: 10px;
+        }
+
+        .gauge-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1f2937;
+            margin: 5px 0;
+        }
+
+        .gauge-unit {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .gauge-percentage {
+            font-size: 14px;
+            color: #4b5563;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .gauge-range {
+            display: flex;
+            justify-content: space-between;
+            width: 220px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .total-forecast {
+            text-align: center;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .total-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .legend-text {
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        .footer {
+            text-align: right;
+            font-size: 10px;
+            color: #6b7280;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">Minnesota Port Forecasts: Current vs Historical Performance (1999-2026)</h1>
+        </div>
+
+        <div class="gauges-grid">
+            <div class="gauge-container">
+                <div class="gauge-title">Port of Duluth</div>
+                <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
+                    <g id="duluth-gauge"></g>
+                </svg>
+                <div class="gauge-value">5.5M</div>
+                <div class="gauge-unit">Long Tons</div>
+                <div class="gauge-percentage">69% of Historical Range</div>
+                <div class="gauge-range">
+                    <span>3.2M (2009)</span>
+                    <span>8.4M (2008)</span>
+                </div>
+            </div>
+
+            <div class="gauge-container">
+                <div class="gauge-title">Port of Superior</div>
+                <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
+                    <g id="superior-gauge"></g>
+                </svg>
+                <div class="gauge-value">6.0M</div>
+                <div class="gauge-unit">Long Tons</div>
+                <div class="gauge-percentage">50% of Historical Range</div>
+                <div class="gauge-range">
+                    <span>2.8M (2020)</span>
+                    <span>9.2M (2007)</span>
+                </div>
+            </div>
+
+            <div class="gauge-container">
+                <div class="gauge-title">Port of Two Harbors</div>
+                <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
+                    <g id="two-harbors-gauge"></g>
+                </svg>
+                <div class="gauge-value">11.2M</div>
+                <div class="gauge-unit">Long Tons</div>
+                <div class="gauge-percentage">51% of Historical Range</div>
+                <div class="gauge-range">
+                    <span>6.5M (2009)</span>
+                    <span>15.8M (2004)</span>
+                </div>
+            </div>
+
+            <div class="gauge-container">
+                <div class="gauge-title">Port of Silver Bay</div>
+                <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
+                    <g id="silver-bay-gauge"></g>
+                </svg>
+                <div class="gauge-value">4.0M</div>
+                <div class="gauge-unit">Long Tons</div>
+                <div class="gauge-percentage">46% of Historical Range</div>
+                <div class="gauge-range">
+                    <span>2.1M (2016)</span>
+                    <span>6.2M (2005)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="total-forecast">
+            <div class="total-text">Total System Forecast: 26.7 Million Long Tons</div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ef4444;"></div>
+                <div class="legend-text">Critical (&lt;20%)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #f97316;"></div>
+                <div class="legend-text">Concerning (20-40%)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #eab308;"></div>
+                <div class="legend-text">Average (40-60%)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #84cc16;"></div>
+                <div class="legend-text">Good (60-80%)</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #22c55e;"></div>
+                <div class="legend-text">Excellent (80-100%)</div>
+            </div>
+        </div>
+
+        <div class="footer" id="timestamp">
+            Generated: March 3, 2026 at 7:30 PM | Data: Minnesota Taconite Analysis
+        </div>
+    </div>
+
+    <script>
+        // Port data matching PNG exactly
+        const ports = [
+            {
+                id: 'duluth-gauge',
+                current: 5.5,
+                min: 3.2,
+                max: 8.4
+            },
+            {
+                id: 'superior-gauge',
+                current: 6.0,
+                min: 2.8,
+                max: 9.2
+            },
+            {
+                id: 'two-harbors-gauge',
+                current: 11.2,
+                min: 6.5,
+                max: 15.8
+            },
+            {
+                id: 'silver-bay-gauge',
+                current: 4.0,
+                min: 2.1,
+                max: 6.2
+            }
+        ];
+
+        // Colors: RED on LEFT (low), GREEN on RIGHT (high)
+        const zoneColors = ['#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e'];
+
+        function drawGauge(port) {
+            const svg = document.getElementById(port.id);
+            const centerX = 125;
+            const centerY = 100;
+            const radius = 80;
+
+            // Calculate percentage within historical range
+            const percentage = (port.current - port.min) / (port.max - port.min);
+
+            // Create one continuous gauge arc: RED on LEFT, GREEN on RIGHT
+            const zonePercentages = [0, 0.2, 0.4, 0.6, 0.8, 1.0];
+
+            for (let i = 0; i < zoneColors.length; i++) {
+                const startPercent = zonePercentages[i];
+                const endPercent = zonePercentages[i + 1];
+
+                // Convert to angles: 180° (left) to 0° (right)
+                const startAngle = Math.PI - (Math.PI * startPercent);
+                const endAngle = Math.PI - (Math.PI * endPercent);
+
+                // Create continuous arc section
+                const largeArcFlag = 0;
+                const sweepFlag = 1;
+
+                const outerStartX = centerX + radius * Math.cos(startAngle);
+                const outerStartY = centerY - radius * Math.sin(startAngle);
+                const outerEndX = centerX + radius * Math.cos(endAngle);
+                const outerEndY = centerY - radius * Math.sin(endAngle);
+
+                const innerStartX = centerX + (radius - 15) * Math.cos(startAngle);
+                const innerStartY = centerY - (radius - 15) * Math.sin(startAngle);
+                const innerEndX = centerX + (radius - 15) * Math.cos(endAngle);
+                const innerEndY = centerY - (radius - 15) * Math.sin(endAngle);
+
+                const pathData = `M ${outerStartX} ${outerStartY}
+                                 A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${outerEndX} ${outerEndY}
+                                 L ${innerEndX} ${innerEndY}
+                                 A ${radius-15} ${radius-15} 0 ${largeArcFlag} 0 ${innerStartX} ${innerStartY} Z`;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', pathData);
+                path.setAttribute('fill', zoneColors[i]);
+                path.setAttribute('stroke', 'white');
+                path.setAttribute('stroke-width', '1');
+                svg.appendChild(path);
+            }
+
+            // Draw needle - match PNG calculation exactly
+            const needleAngle = Math.PI * percentage;
+            const needleX = centerX + 65 * Math.cos(needleAngle);
+            const needleY = centerY - 65 * Math.sin(needleAngle);
+
+            // Needle line
+            const needle = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            needle.setAttribute('x1', centerX);
+            needle.setAttribute('y1', centerY);
+            needle.setAttribute('x2', needleX);
+            needle.setAttribute('y2', needleY);
+            needle.setAttribute('stroke', '#374151');
+            needle.setAttribute('stroke-width', '4');
+            needle.setAttribute('stroke-linecap', 'round');
+            svg.appendChild(needle);
+
+            // Center circle
+            const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            center.setAttribute('cx', centerX);
+            center.setAttribute('cy', centerY);
+            center.setAttribute('r', '6');
+            center.setAttribute('fill', '#374151');
+            svg.appendChild(center);
+        }
+
+        // Draw all gauges
+        ports.forEach(drawGauge);
+
+        // Update timestamp
+        const now = new Date();
+        document.getElementById('timestamp').textContent = `Generated: ${now.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})} at ${now.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true})} | Data: Minnesota Taconite Analysis`;
+    </script>
+</body>
+</html>

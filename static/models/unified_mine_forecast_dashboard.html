@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minnesota Mine Forecast Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 400px;
+            height: auto;
+            margin-bottom: 20px;
+            max-width: 90%;
+            background: transparent;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+        }
+
+        .main-title {
+            font-size: 2.4em;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+
+        .gauges-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto 40px auto;
+            flex-wrap: wrap;
+        }
+
+        .gauge-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            max-width: 320px;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .gauge-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+        }
+
+        /* EXPANSION GAUGES - GREEN THEME */
+        .expansion-gauge {
+            border-left: 6px solid #38a169;
+            background: linear-gradient(135deg, #f0fff4 0%, #ffffff 100%);
+        }
+
+        .expansion-gauge .gauge-category {
+            background: linear-gradient(135deg, #38a169 0%, #48bb78 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.3);
+        }
+
+        /* CUTBACK GAUGE - RED THEME */
+        .cutback-gauge {
+            border-left: 6px solid #e53e3e;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+        }
+
+        .cutback-gauge .gauge-category {
+            background: linear-gradient(135deg, #e53e3e 0%, #f56565 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .gauge-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #1a365d;
+            margin: 35px 0 20px 0;
+            height: 2.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+        }
+
+        .gauge-container {
+            position: relative;
+            width: 220px;
+            height: 180px;
+            margin: 0 auto;
+        }
+
+        .probability-value {
+            font-size: 2.2em;
+            font-weight: 800;
+            margin-top: 20px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* EXPANSION PROSPECT VALUES - GREEN THEME */
+        .expansion-high {
+            color: #2f855a;
+            background: linear-gradient(135deg, rgba(56, 161, 105, 0.15) 0%, rgba(72, 187, 120, 0.1) 100%);
+            border: 2px solid rgba(56, 161, 105, 0.2);
+        }
+        .expansion-med {
+            color: #d69e2e;
+            background: linear-gradient(135deg, rgba(214, 158, 46, 0.15) 0%, rgba(237, 137, 54, 0.1) 100%);
+            border: 2px solid rgba(214, 158, 46, 0.2);
+        }
+        .expansion-low {
+            color: #c53030;
+            background: linear-gradient(135deg, rgba(229, 62, 62, 0.15) 0%, rgba(245, 101, 101, 0.1) 100%);
+            border: 2px solid rgba(229, 62, 62, 0.2);
+        }
+
+        /* CUTBACK PROBABILITY VALUES - RED THEME */
+        .cutback-high {
+            color: #c53030;
+            background: linear-gradient(135deg, rgba(229, 62, 62, 0.2) 0%, rgba(245, 101, 101, 0.15) 100%);
+            border: 2px solid rgba(229, 62, 62, 0.3);
+        }
+        .cutback-med {
+            color: #d69e2e;
+            background: linear-gradient(135deg, rgba(214, 158, 46, 0.2) 0%, rgba(237, 137, 54, 0.15) 100%);
+            border: 2px solid rgba(214, 158, 46, 0.3);
+        }
+        .cutback-low {
+            color: #2f855a;
+            background: linear-gradient(135deg, rgba(56, 161, 105, 0.2) 0%, rgba(72, 187, 120, 0.15) 100%);
+            border: 2px solid rgba(56, 161, 105, 0.3);
+        }
+
+        .gauge-description {
+            font-size: 0.85em;
+            color: #718096;
+            margin-top: 15px;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .timeframe-badge {
+            margin-top: 12px;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .expansion-timeframe {
+            background: rgba(56, 161, 105, 0.1);
+            color: #2f855a;
+            border: 1px solid rgba(56, 161, 105, 0.2);
+        }
+
+        .cutback-timeframe {
+            background: rgba(229, 62, 62, 0.1);
+            color: #c53030;
+            border: 1px solid rgba(229, 62, 62, 0.2);
+        }
+
+        .data-sources {
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .data-sources h3 {
+            color: #1a365d;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .data-sources p {
+            font-size: 0.85em;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-size: 0.8em;
+            color: #718096;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 1400px) {
+            .gauges-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 1.9em;
+            }
+
+            .logo {
+                width: 300px;
+            }
+
+            .gauges-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .gauge-wrapper {
+                min-width: 260px;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="main-title">Minnesota Mine Forecast Dashboard</h1>
+        <p class="subtitle">6-Month Forecasts: Expansion Prospects & Industry Cutback Risk</p>
+    </div>
+
+    <div class="gauges-container">
+        <!-- EXPANSION PROSPECTS -->
+        <div class="gauge-wrapper expansion-gauge">
+            <div class="gauge-category">EXPANSION PROSPECT</div>
+            <h3 class="gauge-title">Hibbing Taconite<br>2/3 Capacity</h3>
+            <div class="gauge-container">
+                <svg id="expansion-gauge1" width="220" height="180" viewBox="0 0 220 180">
+                </svg>
+            </div>
+            <div id="expansion-prob1" class="probability-value">6.7%</div>
+            <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
+            <p class="gauge-description">6-month probability of expanding to 2/3 capacity (+2.7M tons/year)</p>
+        </div>
+
+        <div class="gauge-wrapper expansion-gauge">
+            <div class="gauge-category">EXPANSION PROSPECT</div>
+            <h3 class="gauge-title">Hibbing Taconite<br>Full Capacity</h3>
+            <div class="gauge-container">
+                <svg id="expansion-gauge2" width="220" height="180" viewBox="0 0 220 180">
+                </svg>
+            </div>
+            <div id="expansion-prob2" class="probability-value">4.7%</div>
+            <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
+            <p class="gauge-description">6-month probability of expanding to full capacity (+5.3M tons/year)</p>
+        </div>
+
+        <div class="gauge-wrapper expansion-gauge">
+            <div class="gauge-category">EXPANSION PROSPECT</div>
+            <h3 class="gauge-title">Minorca Mine<br>Restart</h3>
+            <div class="gauge-container">
+                <svg id="expansion-gauge3" width="220" height="180" viewBox="0 0 220 180">
+                </svg>
+            </div>
+            <div id="expansion-prob3" class="probability-value">1.9%</div>
+            <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
+            <p class="gauge-description">6-month probability of full mine restart (+5.0M tons/year)</p>
+        </div>
+
+        <!-- INDUSTRY CUTBACK RISK -->
+        <div class="gauge-wrapper cutback-gauge">
+            <div class="gauge-category">CUTBACK RISK</div>
+            <h3 class="gauge-title">Industry Cutback<br>Announcements</h3>
+            <div class="gauge-container">
+                <svg id="cutback-gauge" width="220" height="180" viewBox="0 0 220 180">
+                </svg>
+            </div>
+            <div id="cutback-prob" class="probability-value">53.0%</div>
+            <div class="timeframe-badge cutback-timeframe">6-Month Forecast</div>
+            <p class="gauge-description">6-month probability of further cutback announcements at operating mines</p>
+        </div>
+    </div>
+
+    <div class="data-sources">
+        <h3>Integrated Data Sources & Methodology</h3>
+        <p><strong>AISI Great Lakes Steel Production:</strong> Weekly steel production data (Column H) for demand trend analysis and oversupply pressure calculation</p>
+        <p><strong>Port Stockpile Intelligence:</strong> Physical dock observations at Duluth, Two Harbors, and Silver Bay for real-time inventory pressure assessment</p>
+        <p><strong>Mine Operational Analysis:</strong> Current capacity utilization, expansion feasibility, and restart complexity assessments for probability modeling</p>
+        <p><strong>Seasonal & Historical Patterns:</strong> Great Lakes shipping seasons, historical cutback announcement timing, and industry cycle analysis</p>
+        <p><strong>Integrated Probability Framework:</strong> Expansion prospects based on market capacity gaps; cutback risks based on oversupply pressure, seasonal timing, and historical context</p>
+    </div>
+
+    <div class="last-updated" id="lastUpdated">
+        Last updated: Loading...
+    </div>
+
+    <script>
+        // Hardcoded mine forecast data
+        const mineData = [
+            {
+                id: 'expansion-gauge1',
+                value: 6.7,
+                type: 'expansion'
+            },
+            {
+                id: 'expansion-gauge2',
+                value: 4.7,
+                type: 'expansion'
+            },
+            {
+                id: 'expansion-gauge3',
+                value: 1.9,
+                type: 'expansion'
+            },
+            {
+                id: 'cutback-gauge',
+                value: 53.0,
+                type: 'cutback'
+            }
+        ];
+
+        function createCircularGauge(data) {
+            const svg = document.getElementById(data.id);
+            const centerX = 110;
+            const centerY = 90;
+            const radius = 65;
+
+            // Convert percentage to angle (0-100% = 0-360 degrees)
+            const percentage = data.value / 100;
+            const angle = percentage * 2 * Math.PI;
+
+            // Colors based on type and value
+            let gaugeColor;
+            if (data.type === 'cutback') {
+                // Cutback gauge: higher = more red
+                if (data.value >= 60) gaugeColor = '#e53e3e';
+                else if (data.value >= 40) gaugeColor = '#d69e2e';
+                else gaugeColor = '#38a169';
+            } else {
+                // Expansion gauge: higher = more green
+                if (data.value >= 40) gaugeColor = '#38a169';
+                else if (data.value >= 20) gaugeColor = '#d69e2e';
+                else gaugeColor = '#e53e3e';
+            }
+
+            // Background circle (light gray)
+            const bgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            bgCircle.setAttribute('cx', centerX);
+            bgCircle.setAttribute('cy', centerY);
+            bgCircle.setAttribute('r', radius);
+            bgCircle.setAttribute('fill', 'none');
+            bgCircle.setAttribute('stroke', '#e2e8f0');
+            bgCircle.setAttribute('stroke-width', '12');
+            svg.appendChild(bgCircle);
+
+            // Progress arc
+            if (percentage > 0) {
+                const endX = centerX + radius * Math.cos(angle - Math.PI/2);
+                const endY = centerY + radius * Math.sin(angle - Math.PI/2);
+
+                const largeArcFlag = percentage > 0.5 ? 1 : 0;
+
+                const pathData = `M ${centerX} ${centerY - radius}
+                                 A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
+
+                const progressPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                progressPath.setAttribute('d', pathData);
+                progressPath.setAttribute('fill', 'none');
+                progressPath.setAttribute('stroke', gaugeColor);
+                progressPath.setAttribute('stroke-width', '12');
+                progressPath.setAttribute('stroke-linecap', 'round');
+                svg.appendChild(progressPath);
+            }
+
+            // Center text with percentage
+            const centerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            centerText.setAttribute('x', centerX);
+            centerText.setAttribute('y', centerY + 8);
+            centerText.setAttribute('text-anchor', 'middle');
+            centerText.setAttribute('font-family', 'system-ui, sans-serif');
+            centerText.setAttribute('font-size', '24');
+            centerText.setAttribute('font-weight', 'bold');
+            centerText.setAttribute('fill', gaugeColor);
+            centerText.textContent = `${data.value}%`;
+            svg.appendChild(centerText);
+        }
+
+        function updateProbabilityDisplay(probId, value, isRisk = false) {
+            const element = document.getElementById(probId);
+
+            element.className = 'probability-value ';
+            if (isRisk) {
+                if (value >= 60) {
+                    element.className += 'cutback-high';
+                } else if (value >= 40) {
+                    element.className += 'cutback-med';
+                } else {
+                    element.className += 'cutback-low';
+                }
+            } else {
+                if (value >= 40) {
+                    element.className += 'expansion-high';
+                } else if (value >= 20) {
+                    element.className += 'expansion-med';
+                } else {
+                    element.className += 'expansion-low';
+                }
+            }
+        }
+
+        // Initialize all gauges
+        mineData.forEach(data => {
+            createCircularGauge(data);
+        });
+
+        // Update probability displays with proper styling
+        updateProbabilityDisplay('expansion-prob1', 6.7, false);
+        updateProbabilityDisplay('expansion-prob2', 4.7, false);
+        updateProbabilityDisplay('expansion-prob3', 1.9, false);
+        updateProbabilityDisplay('cutback-prob', 53.0, true);
+
+        // Update timestamp
+        const now = new Date();
+        document.getElementById('lastUpdated').textContent =
+            `Last updated: ${now.toLocaleString()} | Self-contained mine forecast analysis`;
+    </script>
+</body>
+</html>

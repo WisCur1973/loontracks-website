@@ -1,0 +1,25 @@
+#!/bin/bash
+# sync-models.sh - Sync model HTML files to Hugo after each model run
+
+echo "🔄 Syncing model files to Hugo website..."
+
+# Create directories if they don't exist
+mkdir -p static/models
+mkdir -p static/elections
+
+# Sync MN Iron Industry (Taconite) Dashboards
+echo "📊 Syncing taconite dashboards..."
+cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/claude taconite hybrid prototype/unified_mine_forecast_dashboard.html" "static/models/"
+cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/claude taconite hybrid prototype/port_forecasts_dashboard.html" "static/models/"
+
+# Sync Election Forecasts
+echo "🗳️  Syncing election forecasts..."
+cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Election Probabilities/"*.html "static/elections/"
+
+echo "✅ All model files synced successfully!"
+echo "📁 Files copied to:"
+echo "   - static/models/unified_mine_forecast_dashboard.html"
+echo "   - static/models/port_forecasts_dashboard.html"
+echo "   - static/elections/*.html ($(ls static/elections/*.html | wc -l) files)"
+echo ""
+echo "🚀 Run 'hugo server' to test locally or commit/push to deploy"
