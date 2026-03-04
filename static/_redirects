@@ -9,12 +9,5 @@
 # Legacy redirects (if any old URLs need redirecting)
 /blog/*  /posts/:splat  301
 
-# Force HTTPS
-http://loontracks.com/*  https://loontracks.com/:splat  301!
-http://www.loontracks.com/*  https://loontracks.com/:splat  301!
-
-# WWW to non-WWW redirect
-https://www.loontracks.com/*  https://loontracks.com/:splat  301!
-
-# 404 fallback
-/*  /404.html  404
+# WWW to non-WWW redirect (Cloudflare Pages handles HTTPS automatically)
+/www/*  /:splat  301
