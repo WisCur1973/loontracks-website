@@ -1,0 +1,37 @@
+{{ define "main" }}
+<style>
+.iframe-container {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 0;
+  overflow-x: auto;
+}
+
+.iframe-frame {
+  width: 100%;
+  height: {{ .Params.iframe_height | default "400vh" }};
+  border: none;
+  display: block;
+}
+
+.iframe-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #2d3748;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+<div class="iframe-title">{{ .Title }}</div>
+
+<div class="iframe-container">
+  <iframe src="{{ .Params.iframe_src }}" class="iframe-frame" scrolling="no"></iframe>
+</div>
+{{ end }}
