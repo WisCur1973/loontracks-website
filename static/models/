@@ -23,11 +23,37 @@
             margin-bottom: 30px;
         }
 
-        .main-title {
-            font-size: 28px;
+        .countdown-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 8px;
+        }
+
+        .countdown-text {
+            font-size: 20px;
             font-weight: bold;
             color: #1f2937;
-            margin: 0 0 10px 0;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+
+        .countdown-active {
+            color: #059669;
+            font-size: 18px;
+        }
+
+        .main-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+            margin: 0 0 5px 0;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #4b5563;
+            margin-bottom: 20px;
         }
 
         .gauges-grid {
@@ -134,7 +160,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="main-title">Minnesota Port Forecasts: Current vs Historical Performance (1999-2026)</h1>
+            <div id="countdown-container">
+                <div id="countdown-title" class="countdown-title">Shipping Season begins in:</div>
+                <div id="countdown-timer" class="countdown-text">Loading...</div>
+            </div>
+            <h1 id="main-title" class="main-title">2026 MN Port Forecast</h1>
+            <div class="subtitle">Current vs Historical Performance</div>
         </div>
 
         <div class="gauges-grid">
@@ -143,9 +174,9 @@
                 <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
                     <g id="duluth-gauge"></g>
                 </svg>
-                <div class="gauge-value">5.5M</div>
+                <div class="gauge-value">6.1M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">69% of Historical Range</div>
+                <div class="gauge-percentage">77% of Historical Range</div>
                 <div class="gauge-range">
                     <span>3.2M (2009)</span>
                     <span>8.4M (2008)</span>
@@ -157,9 +188,9 @@
                 <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
                     <g id="superior-gauge"></g>
                 </svg>
-                <div class="gauge-value">6.0M</div>
+                <div class="gauge-value">8.1M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">50% of Historical Range</div>
+                <div class="gauge-percentage">82% of Historical Range</div>
                 <div class="gauge-range">
                     <span>2.8M (2020)</span>
                     <span>9.2M (2007)</span>
@@ -171,9 +202,9 @@
                 <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
                     <g id="two-harbors-gauge"></g>
                 </svg>
-                <div class="gauge-value">11.2M</div>
+                <div class="gauge-value">12.3M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">51% of Historical Range</div>
+                <div class="gauge-percentage">62% of Historical Range</div>
                 <div class="gauge-range">
                     <span>6.5M (2009)</span>
                     <span>15.8M (2004)</span>
@@ -185,9 +216,9 @@
                 <svg class="gauge-svg" width="250" height="140" viewBox="0 0 250 140">
                     <g id="silver-bay-gauge"></g>
                 </svg>
-                <div class="gauge-value">4.0M</div>
+                <div class="gauge-value">4.2M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">46% of Historical Range</div>
+                <div class="gauge-percentage">51% of Historical Range</div>
                 <div class="gauge-range">
                     <span>2.1M (2016)</span>
                     <span>6.2M (2005)</span>
@@ -196,7 +227,7 @@
         </div>
 
         <div class="total-forecast">
-            <div class="total-text">Total System Forecast: 26.7 Million Long Tons</div>
+            <div class="total-text">Total System Forecast: 30.6 Million Long Tons</div>
         </div>
 
         <div class="legend">
@@ -228,29 +259,29 @@
     </div>
 
     <script>
-        // Port data matching PNG exactly
+        // Port data - Monte Carlo P50 values
         const ports = [
             {
                 id: 'duluth-gauge',
-                current: 5.5,
+                current: 6.08,
                 min: 3.2,
                 max: 8.4
             },
             {
                 id: 'superior-gauge',
-                current: 6.0,
+                current: 8.07,
                 min: 2.8,
                 max: 9.2
             },
             {
                 id: 'two-harbors-gauge',
-                current: 11.2,
+                current: 12.26,
                 min: 6.5,
                 max: 15.8
             },
             {
                 id: 'silver-bay-gauge',
-                current: 4.0,
+                current: 4.19,
                 min: 2.1,
                 max: 6.2
             }
@@ -306,8 +337,8 @@
                 svg.appendChild(path);
             }
 
-            // Draw needle - match PNG calculation exactly
-            const needleAngle = Math.PI * percentage;
+            // Draw needle - corrected angle calculation
+            const needleAngle = Math.PI * (1 - percentage);
             const needleX = centerX + 65 * Math.cos(needleAngle);
             const needleY = centerY - 65 * Math.sin(needleAngle);
 
@@ -334,9 +365,47 @@
         // Draw all gauges
         ports.forEach(drawGauge);
 
-        // Update timestamp
+        // Countdown functionality
+        function updateCountdown() {
+            // Target: March 25, 2026 at midnight Central Time
+            const target = new Date('2026-03-25T06:00:00Z').getTime();
+            const now = new Date().getTime();
+            const timeLeft = target - now;
+
+            const countdownTitle = document.getElementById('countdown-title');
+            const countdownTimer = document.getElementById('countdown-timer');
+            const mainTitle = document.getElementById('main-title');
+            const subtitle = document.querySelector('.subtitle');
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                console.log('timeLeft:', timeLeft, 'days:', days);
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                countdownTitle.textContent = 'Shipping Season begins in:';
+                countdownTitle.className = 'countdown-title';
+                countdownTimer.textContent = `${days} Days, ${hours.toString().padStart(2, '0')} Hours, ${minutes.toString().padStart(2, '0')} Minutes, ${seconds.toString().padStart(2, '0')} Seconds`;
+                countdownTimer.className = 'countdown-text';
+                mainTitle.textContent = '2026 MN Port Forecast';
+                subtitle.textContent = 'Current vs Historical Performance';
+            } else {
+                countdownTitle.textContent = 'Shipping Season Active';
+                countdownTitle.className = 'countdown-title countdown-active';
+                countdownTimer.textContent = '';
+                mainTitle.textContent = '2026 Shipping Season Forecast';
+                subtitle.textContent = 'Current Forecast vs Historical Performance';
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Update timestamp with model run time
         const now = new Date();
-        document.getElementById('timestamp').textContent = `Generated: ${now.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})} at ${now.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true})} | Data: Minnesota Taconite Analysis`;
+        document.getElementById('timestamp').textContent = `Model Run: ${now.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago'})} at ${now.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/Chicago'})} CST`;
     </script>
 </body>
 </html>

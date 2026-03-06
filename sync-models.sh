@@ -22,4 +22,10 @@ echo "   - static/models/unified_mine_forecast_dashboard.html"
 echo "   - static/models/port_forecasts_dashboard.html"
 echo "   - static/elections/*.html ($(ls static/elections/*.html | wc -l) files)"
 echo ""
-echo "🚀 Run 'hugo server' to test locally or commit/push to deploy"
+
+# Auto-commit and push to GitHub
+echo "🔄 Auto-committing and pushing to GitHub..."
+git add static/models/ static/elections/
+git commit -m "Auto-update: Model forecasts $(date '+%Y-%m-%d %H:%M:%S')"
+git push origin main
+echo "✅ Changes pushed to GitHub!"
