@@ -257,3 +257,63 @@
     opacity: 0.9;
     font-weight: normal;
 }
+
+/* ================================================================= */
+/* MOBILE RESPONSIVENESS - Site-wide mobile-first approach */
+/* ================================================================= */
+
+@media (max-width: 600px) {
+    /* Global mobile fixes */
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    img, svg, iframe {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    pre, code {
+        overflow-x: auto;
+        white-space: pre-wrap;
+    }
+
+    /* Homepage grid mobile adjustments */
+    .post-content .homepage-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .post-content .category-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .post-content .category-grid.elections-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .post-content .elections-grid .congress {
+        grid-column: 1;
+    }
+
+    .post-content .site-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .post-content .category-tile {
+        font-size: 16px;
+        padding: 20px 15px;
+        min-height: 60px;
+    }
+}
