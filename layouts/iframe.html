@@ -1,15 +1,17 @@
 {{ define "main" }}
 <style>
 .iframe-container {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   padding: 0;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 .iframe-frame {
   width: 100%;
   height: {{ .Params.iframe_height | default "400vh" }};
+  min-height: 600px;
   border: none;
   display: block;
 }
@@ -23,15 +25,25 @@
   padding: 0 20px;
 }
 
-body {
-  margin: 0;
-  padding: 0;
+@media (max-width: 600px) {
+  .iframe-container {
+    overflow: auto;
+  }
+
+  .iframe-frame {
+    min-height: 500px;
+  }
+
+  .iframe-title {
+    font-size: 24px;
+    margin: 15px 0;
+  }
 }
 </style>
 
 <div class="iframe-title">{{ .Title }}</div>
 
 <div class="iframe-container">
-  <iframe src="{{ .Params.iframe_src }}" class="iframe-frame" scrolling="no"></iframe>
+  <iframe src="{{ .Params.iframe_src }}" class="iframe-frame"></iframe>
 </div>
 {{ end }}

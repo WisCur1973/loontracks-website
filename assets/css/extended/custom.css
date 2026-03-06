@@ -317,3 +317,24 @@
         min-height: 60px;
     }
 }
+
+/* ================================================================= */
+/* OVERFLOW FIXES - Override theme's content-clipping rules */
+/* ================================================================= */
+
+/* Fix theme's overflow: hidden that clips content on mobile */
+.first-entry .entry-header {
+    overflow: visible !important;
+}
+
+.entry-content {
+    overflow: visible !important;
+}
+
+/* Ensure content can flow naturally on all devices */
+@media (max-width: 600px) {
+    .first-entry .entry-header,
+    .entry-content {
+        overflow: visible !important;
+    }
+}
