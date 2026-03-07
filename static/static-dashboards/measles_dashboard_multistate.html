@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upper Midwest Measles Outbreak Dashboard</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .header h1 {
+            color: #dc3545;
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .header .subtitle {
+            color: #6c757d;
+            font-size: 1.2em;
+            margin: 15px 0;
+            font-weight: 400;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #dc3545;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .dashboard-container {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .map-container {
+            flex: 2;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            height: fit-content;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .map-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #343a40;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #343a40;
+            margin: 0 0 15px 0;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+        }
+
+        .state-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .state-table th,
+        .state-table td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .state-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cases-cell, .county-cell {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .county-cell {
+            font-size: 0.9em;
+        }
+
+        .status-cell {
+            font-size: 0.9em;
+        }
+
+        .outbreak td {
+            background-color: #fff3cd;
+        }
+
+        .outbreak .cases-cell {
+            color: #dc3545;
+        }
+
+        .resolved td {
+            background-color: #f8f9fa;
+        }
+
+        .resolved .cases-cell {
+            color: #6c757d;
+        }
+
+        .resolved .status-cell {
+            color: #ffc107;
+        }
+
+        .no-outbreak .cases-cell {
+            color: #6c757d;
+        }
+
+        .no-outbreak .status-cell {
+            color: #6c757d;
+        }
+
+        .legend {
+            margin-top: 25px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .legend-color {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin-right: 12px;
+            border: 1px solid #dee2e6;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        .leaflet-popup-content {
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .popup-county {
+            font-size: 16px;
+            font-weight: 700;
+            color: #dc3545;
+            margin-bottom: 8px;
+        }
+
+        .popup-county.resolved {
+            color: #6c757d;
+        }
+
+        .popup-cases {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 8px 0;
+            color: #343a40;
+        }
+
+        .popup-state {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Upper Midwest Measles Dashboard</h1>
+        <div class="subtitle">Real-time County-Level Outbreak Tracking • MN, MI, WI, ND, SD</div>
+
+        <div class="stats-bar">
+            <div class="stat-box">
+                <div class="stat-number">33</div>
+                <div class="stat-label">Active Cases</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Affected States</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Affected Counties</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="map-container">
+            <div class="map-title">County-Level Case Distribution</div>
+            <div id="map"></div>
+        </div>
+
+        <div class="sidebar">
+            <div class="section-title">Cases by State</div>
+            <table class="state-table">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Active Cases</th>
+                        <th>Counties</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                <tr class="outbreak">
+                    <td><strong>North Dakota</strong></td>
+                    <td class="cases-cell">24</td>
+                    <td class="county-cell">4</td>
+                    <td class="status-cell">⚠️ Active</td>
+                </tr>
+            
+                <tr class="no-outbreak">
+                    <td><strong>Michigan</strong></td>
+                    <td class="cases-cell">0</td>
+                    <td class="county-cell">0</td>
+                    <td class="status-cell">✓ No cases</td>
+                </tr>
+            
+                <tr class="outbreak">
+                    <td><strong>Minnesota</strong></td>
+                    <td class="cases-cell">5</td>
+                    <td class="county-cell">3</td>
+                    <td class="status-cell">⚠️ Active</td>
+                </tr>
+            
+                <tr class="outbreak">
+                    <td><strong>Wisconsin</strong></td>
+                    <td class="cases-cell">3</td>
+                    <td class="county-cell">2</td>
+                    <td class="status-cell">⚠️ Active</td>
+                </tr>
+            
+                <tr class="outbreak">
+                    <td><strong>South Dakota</strong></td>
+                    <td class="cases-cell">1</td>
+                    <td class="county-cell">1</td>
+                    <td class="status-cell">⚠️ Active</td>
+                </tr>
+            
+                </tbody>
+            </table>
+
+            <div class="disclaimer">
+                <div class="disclaimer-header">
+                    ⚠️ Data updated weekly. For the most current information, visit your state health department:
+                </div>
+                <ul class="disclaimer-links">
+                    <li><a href="https://health.state.mn.us/diseases/measles/stats.html" target="_blank">Minnesota</a>: health.state.mn.us/diseases/measles/stats.html</li>
+                    <li><a href="https://michigan.gov/mdhhs/adult-child-serv/childrenfamilies/immunizations/measlesupdates" target="_blank">Michigan</a>: michigan.gov/mdhhs/adult-child-serv/childrenfamilies/immunizations/measlesupdates</li>
+                    <li><a href="https://dhs.wisconsin.gov/outbreaks/index.htm" target="_blank">Wisconsin</a>: dhs.wisconsin.gov/outbreaks/index.htm</li>
+                    <li><a href="https://hhs.nd.gov/immunizations/measles" target="_blank">North Dakota</a>: hhs.nd.gov/immunizations/measles</li>
+                    <li><a href="https://doh.sd.gov/diseases/infectious/measles/" target="_blank">South Dakota</a>: doh.sd.gov/diseases/infectious/measles/</li>
+                </ul>
+            </div>
+
+            <div class="section-title">Legend</div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffffcc;"></div>
+                    <span>1-2 active cases</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffa500;"></div>
+                    <span>3-10 active cases</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff0000;"></div>
+                    <span>11+ active cases</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #cccccc;"></div>
+                    <span>Resolved outbreak</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="last-updated">
+        Built: 2026-03-07 at 1:27 AM | Data updated: 2026-03-07 | Cases older than 6 weeks are automatically removed | Data: state health departments
+    </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Outbreak data embedded at build time
+        const outbreakData = [
+        {
+                "county": "Pembina",
+                "state": "ND",
+                "lat": 48.9667,
+                "lon": -97.239,
+                "cases": 21,
+                "color": "#ff0000",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "21 cases",
+                "total_cases": 21
+        },
+        {
+                "county": "Walsh",
+                "state": "ND",
+                "lat": 48.2756,
+                "lon": -97.8954,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Williams",
+                "state": "ND",
+                "lat": 48.1056,
+                "lon": -103.6185,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Traill",
+                "state": "ND",
+                "lat": 47.2953,
+                "lon": -97.1465,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Waukesha",
+                "state": "WI",
+                "lat": 43.0116,
+                "lon": -88.2315,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Dane",
+                "state": "WI",
+                "lat": 43.0731,
+                "lon": -89.4012,
+                "cases": 2,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "2 cases",
+                "total_cases": 2
+        },
+        {
+                "county": "Hennepin",
+                "state": "MN",
+                "lat": 44.9778,
+                "lon": -93.265,
+                "cases": 3,
+                "color": "#ffa500",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "3 cases",
+                "total_cases": 3
+        },
+        {
+                "county": "Ramsey",
+                "state": "MN",
+                "lat": 44.9537,
+                "lon": -93.09,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Anoka",
+                "state": "MN",
+                "lat": 45.198,
+                "lon": -93.2108,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Brookings",
+                "state": "SD",
+                "lat": 44.3114,
+                "lon": -96.7984,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        }
+];
+
+        // Initialize map centered on upper Midwest
+        const map = L.map('map').setView([46.5, -93.5], 5);
+
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        // Add county markers
+        outbreakData.forEach(function(county) {
+            // Create circle marker
+            const circle = L.circleMarker([county.lat, county.lon], {
+                radius: county.radius,
+                fillColor: county.color,
+                color: county.display_status === 'resolved' ? '#999999' : '#333333',
+                weight: county.display_status === 'active' ? 2 : 1,
+                opacity: county.display_status === 'resolved' ? 0.7 : 1,
+                fillOpacity: county.fillOpacity
+            });
+
+            // Create popup content
+            const popupClass = county.display_status === 'resolved' ? 'resolved' : '';
+            const popupContent = `
+                <div class="popup-county ${popupClass}">${county.county} County</div>
+                <div class="popup-state">${county.state}</div>
+                <div class="popup-cases">${county.popup_text}</div>
+            `;
+
+            circle.bindPopup(popupContent);
+            circle.addTo(map);
+
+            // Add hover effect for active counties
+            if (county.display_status === 'active') {
+                circle.on('mouseover', function(e) {
+                    this.setStyle({
+                        weight: 3,
+                        opacity: 1
+                    });
+                });
+
+                circle.on('mouseout', function(e) {
+                    this.setStyle({
+                        weight: 2,
+                        opacity: 1
+                    });
+                });
+            }
+        });
+
+        console.log('Multi-State Measles Dashboard initialized');
+        console.log('Total counties loaded:', outbreakData.length);
+        console.log('Active counties:', outbreakData.filter(c => c.display_status === 'active').length);
+        console.log('Resolved counties:', outbreakData.filter(c => c.display_status === 'resolved').length);
+    </script>
+</body>
+</html>

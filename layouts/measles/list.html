@@ -1,0 +1,22 @@
+{{ define "main" }}
+<style>
+  .measles-wrapper {
+    width: 100%;
+    height: calc(100vh - 120px);
+    min-height: 600px;
+  }
+  .measles-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>
+<div class="measles-wrapper">
+  <iframe
+    src="/static-dashboards/measles_dashboard_multistate.html"
+    title="Measles Outbreak Dashboard"
+    loading="lazy">
+  </iframe>
+</div>
+{{ end }}

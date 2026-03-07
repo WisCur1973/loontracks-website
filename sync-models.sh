@@ -13,6 +13,13 @@ cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-
 cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/claude taconite hybrid prototype/port_forecasts_dashboard.html" "static/models/"
 
 # Sync Election Forecasts
+
+# Sync Measles Dashboard
+echo "🦠 Syncing measles dashboard..."
+mkdir -p static/static-dashboards
+cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/MMR mapping files/measles_dashboard_multistate.html" \
+   "static/static-dashboards/measles_dashboard_multistate.html"
+echo "   - static/static-dashboards/measles_dashboard_multistate.html"
 echo "🗳️  Syncing election forecasts..."
 cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Election Probabilities/"*.html "static/elections/"
 
@@ -25,7 +32,7 @@ echo ""
 
 # Auto-commit and push to GitHub
 echo "🔄 Auto-committing and pushing to GitHub..."
-git add static/models/ static/elections/
+git add static/models/ static/elections/ static/static-dashboards/
 git commit -m "Auto-update: Model forecasts $(date '+%Y-%m-%d %H:%M:%S')"
 git push origin main
 echo "✅ Changes pushed to GitHub!"

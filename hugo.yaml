@@ -41,6 +41,9 @@ menus:
     - name: "Models"
       url: "/models/"
       weight: 30
+    - name: "Measles"
+      url: "/measles/"
+      weight: 35
     - name: "About"
       url: "/about/"
       weight: 40
