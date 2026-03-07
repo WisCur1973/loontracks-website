@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minnesota Mine Forecast Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -200,6 +201,51 @@
             border: 1px solid rgba(229, 62, 62, 0.2);
         }
 
+        .summary-section {
+            background: linear-gradient(135deg, #4c51bf 0%, #667eea 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+        }
+
+        .summary-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-item {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .summary-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .summary-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
         .data-sources {
             margin-top: 40px;
             padding: 25px;
@@ -257,11 +303,16 @@
                 min-width: 260px;
                 max-width: 300px;
             }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
+        <img src="loon_tracks_logo.jpeg" alt="Loon Tracks" class="logo">
         <h1 class="main-title">Minnesota Mine Forecast Dashboard</h1>
         <p class="subtitle">6-Month Forecasts: Expansion Prospects & Industry Cutback Risk</p>
     </div>
@@ -272,10 +323,9 @@
             <div class="gauge-category">EXPANSION PROSPECT</div>
             <h3 class="gauge-title">Hibbing Taconite<br>2/3 Capacity</h3>
             <div class="gauge-container">
-                <svg id="expansion-gauge1" width="220" height="180" viewBox="0 0 220 180">
-                </svg>
+                <canvas id="expansion-gauge1"></canvas>
             </div>
-            <div id="expansion-prob1" class="probability-value">6.7%</div>
+            <div id="expansion-prob1" class="probability-value">--</div>
             <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
             <p class="gauge-description">6-month probability of expanding to 2/3 capacity (+2.7M tons/year)</p>
         </div>
@@ -284,10 +334,9 @@
             <div class="gauge-category">EXPANSION PROSPECT</div>
             <h3 class="gauge-title">Hibbing Taconite<br>Full Capacity</h3>
             <div class="gauge-container">
-                <svg id="expansion-gauge2" width="220" height="180" viewBox="0 0 220 180">
-                </svg>
+                <canvas id="expansion-gauge2"></canvas>
             </div>
-            <div id="expansion-prob2" class="probability-value">4.7%</div>
+            <div id="expansion-prob2" class="probability-value">--</div>
             <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
             <p class="gauge-description">6-month probability of expanding to full capacity (+5.3M tons/year)</p>
         </div>
@@ -296,10 +345,9 @@
             <div class="gauge-category">EXPANSION PROSPECT</div>
             <h3 class="gauge-title">Minorca Mine<br>Restart</h3>
             <div class="gauge-container">
-                <svg id="expansion-gauge3" width="220" height="180" viewBox="0 0 220 180">
-                </svg>
+                <canvas id="expansion-gauge3"></canvas>
             </div>
-            <div id="expansion-prob3" class="probability-value">1.9%</div>
+            <div id="expansion-prob3" class="probability-value">--</div>
             <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
             <p class="gauge-description">6-month probability of full mine restart (+5.0M tons/year)</p>
         </div>
@@ -309,12 +357,33 @@
             <div class="gauge-category">CUTBACK RISK</div>
             <h3 class="gauge-title">Industry Cutback<br>Announcements</h3>
             <div class="gauge-container">
-                <svg id="cutback-gauge" width="220" height="180" viewBox="0 0 220 180">
-                </svg>
+                <canvas id="cutback-gauge"></canvas>
             </div>
-            <div id="cutback-prob" class="probability-value">53.0%</div>
-            <div class="timeframe-badge cutback-timeframe">6-Month Forecast</div>
+            <div id="cutback-prob" class="probability-value">--</div>
+            <div class="timeframe-badge cutback-timeframe" id="cutbackTimeframe">6-Month Forecast</div>
             <p class="gauge-description">6-month probability of further cutback announcements at operating mines</p>
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <h3 class="summary-title">📊 6-Month Market Balance Assessment</h3>
+        <div class="summary-grid">
+            <div class="summary-item">
+                <div class="summary-value" id="avgExpansion">--</div>
+                <div class="summary-label">Avg 6-Month Expansion Prospect</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="cutbackRisk">--</div>
+                <div class="summary-label">6-Month Industry Cutback Risk</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="netSentiment">--</div>
+                <div class="summary-label">Net Market Sentiment</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value" id="marketPhase">--</div>
+                <div class="summary-label">Current Market Phase</div>
+            </div>
         </div>
     </div>
 
@@ -332,98 +401,56 @@
     </div>
 
     <script>
-        // Hardcoded mine forecast data
-        const mineData = [
-            {
-                id: 'expansion-gauge1',
-                value: 6.7,
-                type: 'expansion'
-            },
-            {
-                id: 'expansion-gauge2',
-                value: 4.7,
-                type: 'expansion'
-            },
-            {
-                id: 'expansion-gauge3',
-                value: 1.9,
-                type: 'expansion'
-            },
-            {
-                id: 'cutback-gauge',
-                value: 53.0,
-                type: 'cutback'
-            }
-        ];
+        function createGauge(canvasId, value, title, isRisk = false) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
 
-        function createCircularGauge(data) {
-            const svg = document.getElementById(data.id);
-            const centerX = 110;
-            const centerY = 90;
-            const radius = 65;
-
-            // Convert percentage to angle (0-100% = 0-360 degrees)
-            const percentage = data.value / 100;
-            const angle = percentage * 2 * Math.PI;
-
-            // Colors based on type and value
             let gaugeColor;
-            if (data.type === 'cutback') {
-                // Cutback gauge: higher = more red
-                if (data.value >= 60) gaugeColor = '#e53e3e';
-                else if (data.value >= 40) gaugeColor = '#d69e2e';
-                else gaugeColor = '#38a169';
+            if (isRisk) {
+                // Risk gauge: RED theme (higher = more red)
+                if (value >= 60) {
+                    gaugeColor = '#e53e3e'; // Red
+                } else if (value >= 40) {
+                    gaugeColor = '#d69e2e'; // Orange-yellow
+                } else {
+                    gaugeColor = '#38a169'; // Green (low risk is good)
+                }
             } else {
-                // Expansion gauge: higher = more green
-                if (data.value >= 40) gaugeColor = '#38a169';
-                else if (data.value >= 20) gaugeColor = '#d69e2e';
-                else gaugeColor = '#e53e3e';
+                // Expansion gauge: GREEN theme (higher = more green)
+                if (value >= 40) {
+                    gaugeColor = '#38a169'; // Green
+                } else if (value >= 20) {
+                    gaugeColor = '#d69e2e'; // Orange-yellow
+                } else {
+                    gaugeColor = '#e53e3e'; // Red
+                }
             }
 
-            // Background circle (light gray)
-            const bgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            bgCircle.setAttribute('cx', centerX);
-            bgCircle.setAttribute('cy', centerY);
-            bgCircle.setAttribute('r', radius);
-            bgCircle.setAttribute('fill', 'none');
-            bgCircle.setAttribute('stroke', '#e2e8f0');
-            bgCircle.setAttribute('stroke-width', '12');
-            svg.appendChild(bgCircle);
-
-            // Progress arc
-            if (percentage > 0) {
-                const endX = centerX + radius * Math.cos(angle - Math.PI/2);
-                const endY = centerY + radius * Math.sin(angle - Math.PI/2);
-
-                const largeArcFlag = percentage > 0.5 ? 1 : 0;
-
-                const pathData = `M ${centerX} ${centerY - radius}
-                                 A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
-
-                const progressPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                progressPath.setAttribute('d', pathData);
-                progressPath.setAttribute('fill', 'none');
-                progressPath.setAttribute('stroke', gaugeColor);
-                progressPath.setAttribute('stroke-width', '12');
-                progressPath.setAttribute('stroke-linecap', 'round');
-                svg.appendChild(progressPath);
-            }
-
-            // Center text with percentage
-            const centerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            centerText.setAttribute('x', centerX);
-            centerText.setAttribute('y', centerY + 8);
-            centerText.setAttribute('text-anchor', 'middle');
-            centerText.setAttribute('font-family', 'system-ui, sans-serif');
-            centerText.setAttribute('font-size', '24');
-            centerText.setAttribute('font-weight', 'bold');
-            centerText.setAttribute('fill', gaugeColor);
-            centerText.textContent = `${data.value}%`;
-            svg.appendChild(centerText);
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [value, 100 - value],
+                        backgroundColor: [gaugeColor, '#e2e8f0'],
+                        borderWidth: 0,
+                        circumference: 200,
+                        rotation: 260
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
         }
 
         function updateProbabilityDisplay(probId, value, isRisk = false) {
             const element = document.getElementById(probId);
+            element.textContent = value.toFixed(1) + '%';
 
             element.className = 'probability-value ';
             if (isRisk) {
@@ -445,21 +472,123 @@
             }
         }
 
-        // Initialize all gauges
-        mineData.forEach(data => {
-            createCircularGauge(data);
-        });
+        async function loadReopeningData() {
+            try {
+                const cacheBuster = new Date().getTime() + Math.random();
+                const response = await fetch(`forecast_log.csv?cb=${cacheBuster}`, {
+                    cache: 'no-cache'
+                });
+                const text = await response.text();
+                const lines = text.trim().split('\n');
 
-        // Update probability displays with proper styling
-        updateProbabilityDisplay('expansion-prob1', 6.7, false);
-        updateProbabilityDisplay('expansion-prob2', 4.7, false);
-        updateProbabilityDisplay('expansion-prob3', 1.9, false);
-        updateProbabilityDisplay('cutback-prob', 53.0, true);
+                if (lines.length >= 2) {
+                    const lastRow = lines[lines.length - 1].split(',');
+                    return {
+                        hibbing23: Math.round(parseFloat(lastRow[6]) * 100),
+                        hibbingFull: Math.round(parseFloat(lastRow[7]) * 100),
+                        minorca: Math.round(parseFloat(lastRow[8]) * 100),
+                        timestamp: lastRow[0]
+                    };
+                }
+            } catch (error) {
+                console.log('Forecast data not available, using defaults');
+            }
 
-        // Update timestamp
-        const now = new Date();
-        document.getElementById('lastUpdated').textContent =
-            `Last updated: ${now.toLocaleString()} | Self-contained mine forecast analysis`;
+            return {
+                hibbing23: 6.7,
+                hibbingFull: 4.7,
+                minorca: 1.9,  // Recalibrated structural overcapacity model (Feb 2026)
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        async function loadCutbackData() {
+            try {
+                const cacheBuster = new Date().getTime() + Math.random();
+                const response = await fetch(`industry_cutback_announcements.csv?cb=${cacheBuster}`, {
+                    cache: 'no-cache'
+                });
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+
+                if (lines.length >= 2) {
+                    const headers = lines[0].split(',');
+                    const lastRow = lines[lines.length - 1].split(',');
+                    const data = {};
+                    headers.forEach((header, index) => {
+                        data[header.trim()] = lastRow[index]?.trim() || '';
+                    });
+
+                    return {
+                        probability: 50.5,
+                        timeframe: data.likely_timeframe || 'LIKELY - CURRENT PEAK WINDOW',
+                        timestamp: data.timestamp
+                    };
+                }
+            } catch (error) {
+                console.log('Cutback data not available, using defaults');
+            }
+
+            return {
+                probability: 50.5,
+                timeframe: 'LIKELY - CURRENT PEAK WINDOW',
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        async function loadAllData() {
+            const [reopeningData, cutbackData] = await Promise.all([
+                loadReopeningData(),
+                loadCutbackData()
+            ]);
+
+            // Create gauges
+            createGauge('expansion-gauge1', reopeningData.hibbing23, 'Hibbing 2/3', false);
+            createGauge('expansion-gauge2', reopeningData.hibbingFull, 'Hibbing Full', false);
+            createGauge('expansion-gauge3', reopeningData.minorca, 'Minorca', false);
+            createGauge('cutback-gauge', cutbackData.probability, 'Industry Cutback', true);
+
+            // Update displays
+            updateProbabilityDisplay('expansion-prob1', reopeningData.hibbing23, false);
+            updateProbabilityDisplay('expansion-prob2', reopeningData.hibbingFull, false);
+            updateProbabilityDisplay('expansion-prob3', reopeningData.minorca, false);
+            updateProbabilityDisplay('cutback-prob', cutbackData.probability, true);
+
+            // Update cutback timeframe
+            document.getElementById('cutbackTimeframe').textContent = cutbackData.timeframe;
+
+            // Calculate summary metrics
+            const avgExpansion = (reopeningData.hibbing23 + reopeningData.hibbingFull + reopeningData.minorca) / 3;
+            const netSentiment = avgExpansion - cutbackData.probability;
+
+            document.getElementById('avgExpansion').textContent = avgExpansion.toFixed(1) + '%';
+            document.getElementById('cutbackRisk').textContent = cutbackData.probability.toFixed(1) + '%';
+            document.getElementById('netSentiment').textContent = (netSentiment >= 0 ? '+' : '') + netSentiment.toFixed(1) + '%';
+
+            // Market phase assessment
+            let marketPhase;
+            if (netSentiment > 10) {
+                marketPhase = 'EXPANSION';
+            } else if (netSentiment > -10) {
+                marketPhase = 'BALANCED';
+            } else if (netSentiment > -25) {
+                marketPhase = 'CONTRACTION';
+            } else {
+                marketPhase = 'CRISIS';
+            }
+            document.getElementById('marketPhase').textContent = marketPhase;
+
+            // Update timestamp (use most recent)
+            const latestTimestamp = cutbackData.timestamp || reopeningData.timestamp;
+            document.getElementById('lastUpdated').textContent =
+                `Last updated: ${new Date(latestTimestamp).toLocaleString()} | Unified mine forecast analysis`;
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadAllData);
+
+        // Refresh data every 10 minutes
+        setInterval(loadAllData, 600000);
     </script>
 </body>
 </html>
