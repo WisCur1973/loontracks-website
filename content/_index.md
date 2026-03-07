@@ -59,8 +59,8 @@ markup: html
         <a href="/measles/" class="category-tile measles">
           Measles
         </a>
-        <a href="/pertussis/" class="category-tile pertussis">
-          Pertussis
+        <a href="/flu-season/" class="category-tile flu-season">
+          Flu Season
         </a>
       </div>
     </div>

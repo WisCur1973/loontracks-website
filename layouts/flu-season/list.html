@@ -1,0 +1,22 @@
+{{ define "main" }}
+<style>
+  .flu-season-wrapper {
+    width: 100%;
+    height: calc(100vh - 120px);
+    min-height: 600px;
+  }
+  .flu-season-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>
+<div class="flu-season-wrapper">
+  <iframe
+    src="/static-dashboards/respiratory_dashboard.html"
+    title="Respiratory Virus Dashboard"
+    loading="lazy">
+  </iframe>
+</div>
+{{ end }}

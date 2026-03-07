@@ -338,3 +338,6 @@
         overflow: visible !important;
     }
 }
+.post-content .flu-season {
+    background: linear-gradient(135deg, #667eea, #5a67d8);
+}

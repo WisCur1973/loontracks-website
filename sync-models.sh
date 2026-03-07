@@ -20,6 +20,13 @@ mkdir -p static/static-dashboards
 cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/MMR mapping files/measles_dashboard_multistate.html" \
    "static/static-dashboards/measles_dashboard_multistate.html"
 echo "   - static/static-dashboards/measles_dashboard_multistate.html"
+
+# Sync Respiratory Dashboard
+echo "🫁 Syncing respiratory dashboard..."
+cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/respiratory_dashboard.html" \
+   "static/static-dashboards/respiratory_dashboard.html"
+echo "   - static/static-dashboards/respiratory_dashboard.html"
+
 echo "🗳️  Syncing election forecasts..."
 cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Election Probabilities/"*.html "static/elections/"
 
