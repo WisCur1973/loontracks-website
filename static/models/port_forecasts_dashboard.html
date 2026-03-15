@@ -176,7 +176,7 @@
                 </svg>
                 <div class="gauge-value">6.6M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">77% of Historical Range</div>
+                <div class="gauge-percentage"></div>
                 <div class="gauge-range">
                     <span>3.2M (2009)</span>
                     <span>8.4M (2008)</span>
@@ -190,7 +190,7 @@
                 </svg>
                 <div class="gauge-value">8.8M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">82% of Historical Range</div>
+                <div class="gauge-percentage"></div>
                 <div class="gauge-range">
                     <span>2.8M (2020)</span>
                     <span>9.2M (2007)</span>
@@ -204,7 +204,7 @@
                 </svg>
                 <div class="gauge-value">13.4M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">62% of Historical Range</div>
+                <div class="gauge-percentage"></div>
                 <div class="gauge-range">
                     <span>6.5M (2009)</span>
                     <span>15.8M (2004)</span>
@@ -218,7 +218,7 @@
                 </svg>
                 <div class="gauge-value">4.8M</div>
                 <div class="gauge-unit">Long Tons</div>
-                <div class="gauge-percentage">51% of Historical Range</div>
+                <div class="gauge-percentage"></div>
                 <div class="gauge-range">
                     <span>2.1M (2016)</span>
                     <span>6.2M (2005)</span>
@@ -352,6 +352,12 @@
             needle.setAttribute('stroke-width', '4');
             needle.setAttribute('stroke-linecap', 'round');
             svg.appendChild(needle);
+
+            // Update the percentage text dynamically
+            const gaugeContainer = svg.closest('.gauge-container');
+            const percentageDiv = gaugeContainer.querySelector('.gauge-percentage');
+            const pct = Math.round(percentage * 100);
+            percentageDiv.textContent = pct + '% of Historical Range';
 
             // Center circle
             const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
