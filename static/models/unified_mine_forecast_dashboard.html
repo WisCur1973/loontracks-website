@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minnesota Mine Forecast Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -322,7 +321,7 @@
             <div class="gauge-category">EXPANSION PROSPECT</div>
             <h3 class="gauge-title">Hibbing Taconite<br>2/3 Capacity</h3>
             <div class="gauge-container">
-                <canvas id="expansion-gauge1"></canvas>
+                <div id="expansion-gauge1"></div>
             </div>
             <div id="expansion-prob1" class="probability-value">--</div>
             <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
@@ -333,7 +332,7 @@
             <div class="gauge-category">EXPANSION PROSPECT</div>
             <h3 class="gauge-title">Hibbing Taconite<br>Full Capacity</h3>
             <div class="gauge-container">
-                <canvas id="expansion-gauge2"></canvas>
+                <div id="expansion-gauge2"></div>
             </div>
             <div id="expansion-prob2" class="probability-value">--</div>
             <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
@@ -344,7 +343,7 @@
             <div class="gauge-category">EXPANSION PROSPECT</div>
             <h3 class="gauge-title">Minorca Mine<br>Restart</h3>
             <div class="gauge-container">
-                <canvas id="expansion-gauge3"></canvas>
+                <div id="expansion-gauge3"></div>
             </div>
             <div id="expansion-prob3" class="probability-value">--</div>
             <div class="timeframe-badge expansion-timeframe">6-Month Forecast</div>
@@ -356,7 +355,7 @@
             <div class="gauge-category">CUTBACK RISK</div>
             <h3 class="gauge-title">Industry Cutback<br>Announcements</h3>
             <div class="gauge-container">
-                <canvas id="cutback-gauge"></canvas>
+                <div id="cutback-gauge"></div>
             </div>
             <div id="cutback-prob" class="probability-value">--</div>
             <div class="timeframe-badge cutback-timeframe" id="cutbackTimeframe">6-Month Forecast</div>
@@ -401,50 +400,34 @@
 
     <script>
         function createGauge(canvasId, value, title, isRisk = false) {
-            const ctx = document.getElementById(canvasId).getContext('2d');
+            const container = document.getElementById(canvasId);
+            if (!container) return;
 
             let gaugeColor;
             if (isRisk) {
-                // Risk gauge: RED theme (higher = more red)
-                if (value >= 60) {
-                    gaugeColor = '#e53e3e'; // Red
-                } else if (value >= 40) {
-                    gaugeColor = '#d69e2e'; // Orange-yellow
-                } else {
-                    gaugeColor = '#38a169'; // Green (low risk is good)
-                }
+                if (value >= 60) gaugeColor = '#e53e3e';
+                else if (value >= 40) gaugeColor = '#d69e2e';
+                else gaugeColor = '#38a169';
             } else {
-                // Expansion gauge: GREEN theme (higher = more green)
-                if (value >= 40) {
-                    gaugeColor = '#38a169'; // Green
-                } else if (value >= 20) {
-                    gaugeColor = '#d69e2e'; // Orange-yellow
-                } else {
-                    gaugeColor = '#e53e3e'; // Red
-                }
+                if (value >= 40) gaugeColor = '#38a169';
+                else if (value >= 20) gaugeColor = '#d69e2e';
+                else gaugeColor = '#e53e3e';
             }
 
-            return new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [value, 100 - value],
-                        backgroundColor: [gaugeColor, '#e2e8f0'],
-                        borderWidth: 0,
-                        circumference: 200,
-                        rotation: 260
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '75%',
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
-                }
-            });
+            const pct = Math.min(Math.max(value, 0), 100);
+            const radius = 54;
+            const circumference = Math.PI * radius;
+            const offset = circumference - (pct / 100) * circumference;
+
+            container.innerHTML = `
+                <svg viewBox="0 0 120 70" width="160" height="90">
+                    <path d="M 10 65 A 54 54 0 0 1 110 65"
+                          fill="none" stroke="#e2e8f0" stroke-width="12" stroke-linecap="round"/>
+                    <path d="M 10 65 A 54 54 0 0 1 110 65"
+                          fill="none" stroke="${gaugeColor}" stroke-width="12" stroke-linecap="round"
+                          stroke-dasharray="${circumference}"
+                          stroke-dashoffset="${offset}"/>
+                </svg>`;
         }
 
         function updateProbabilityDisplay(probId, value, isRisk = false) {
