@@ -472,63 +472,16 @@
             }
         }
 
-        async function loadReopeningData() {
-            try {
-                const cacheBuster = new Date().getTime() + Math.random();
-                const response = await fetch(`forecast_log.csv?cb=${cacheBuster}`, {
-                    cache: 'no-cache'
-                });
-                const text = await response.text();
-                const lines = text.trim().split('\n');
-
-                if (lines.length >= 2) {
-                    const lastRow = lines[lines.length - 1].split(',');
-                    return {
-                        hibbing23: Math.round(parseFloat(lastRow[6]) * 100),
-                        hibbingFull: Math.round(parseFloat(lastRow[7]) * 100),
-                        minorca: Math.round(parseFloat(lastRow[8]) * 100),
-                        timestamp: lastRow[0]
-                    };
-                }
-            } catch (error) {
-                console.log('Forecast data not available, using defaults');
-            }
-
+        function loadReopeningData() {
             return {
                 hibbing23: 6.7,
                 hibbingFull: 4.7,
-                minorca: 1.9,  // Recalibrated structural overcapacity model (Feb 2026)
+                minorca: 1.9,
                 timestamp: new Date().toISOString()
             };
         }
 
-        async function loadCutbackData() {
-            try {
-                const cacheBuster = new Date().getTime() + Math.random();
-                const response = await fetch(`industry_cutback_announcements.csv?cb=${cacheBuster}`, {
-                    cache: 'no-cache'
-                });
-                const text = await response.text();
-                const lines = text.trim().split('\n');
-
-                if (lines.length >= 2) {
-                    const headers = lines[0].split(',');
-                    const lastRow = lines[lines.length - 1].split(',');
-                    const data = {};
-                    headers.forEach((header, index) => {
-                        data[header.trim()] = lastRow[index]?.trim() || '';
-                    });
-
-                    return {
-                        probability: 50.5,
-                        timeframe: data.likely_timeframe || 'LIKELY - CURRENT PEAK WINDOW',
-                        timestamp: data.timestamp
-                    };
-                }
-            } catch (error) {
-                console.log('Cutback data not available, using defaults');
-            }
-
+        function loadCutbackData() {
             return {
                 probability: 50.5,
                 timeframe: 'LIKELY - CURRENT PEAK WINDOW',
@@ -536,11 +489,9 @@
             };
         }
 
-        async function loadAllData() {
-            const [reopeningData, cutbackData] = await Promise.all([
-                loadReopeningData(),
-                loadCutbackData()
-            ]);
+        function loadAllData() {
+            const reopeningData = loadReopeningData();
+            const cutbackData = loadCutbackData();
 
             // Create gauges
             createGauge('expansion-gauge1', reopeningData.hibbing23, 'Hibbing 2/3', false);
