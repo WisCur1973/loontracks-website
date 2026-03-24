@@ -30,6 +30,17 @@ echo "   - static/static-dashboards/respiratory_dashboard.html"
 echo "🗳️  Syncing election forecasts..."
 cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Election Probabilities/"*.html "static/elections/"
 
+# Verify both dated and latest versions exist
+echo "🔍 Verifying election forecast files..."
+latest_files=("Congressional_Forecast_latest.html" "Governor_Forecast_latest.html" "MI_Legislature_Forecast_latest.html" "MN_Legislature_Forecast_latest.html" "WI_Legislature_Forecast_latest.html")
+for file in "${latest_files[@]}"; do
+    if [ -f "static/elections/$file" ]; then
+        echo "   ✅ $file"
+    else
+        echo "   ❌ $file (missing)"
+    fi
+done
+
 echo "✅ All model files synced successfully!"
 echo "📁 Files copied to:"
 echo "   - static/models/unified_mine_forecast_dashboard.html"

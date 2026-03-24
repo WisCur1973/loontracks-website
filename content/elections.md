@@ -69,26 +69,26 @@ body {
 <div class="elections-container">
   <div class="election-section">
     <div class="election-title">Congressional Forecast</div>
-    <iframe src="/elections/Congressional_Forecast_2026-02-09.html" class="congressional-frame" scrolling="no"></iframe>
+    <iframe src="/elections/Congressional_Forecast_latest.html" class="congressional-frame" scrolling="no"></iframe>
   </div>
 
   <div class="election-section">
     <div class="election-title">Governor Forecast</div>
-    <iframe src="/elections/Governor_Forecast_2026-02-09.html" class="governor-frame" scrolling="no"></iframe>
+    <iframe src="/elections/Governor_Forecast_latest.html" class="governor-frame" scrolling="no"></iframe>
   </div>
 
   <div class="election-section">
     <div class="election-title">Michigan Legislature Forecast</div>
-    <iframe src="/elections/MI_Legislature_Forecast_2026-02-09.html" class="legislature-frame" scrolling="no"></iframe>
+    <iframe src="/elections/MI_Legislature_Forecast_latest.html" class="legislature-frame" scrolling="no"></iframe>
   </div>
 
   <div class="election-section">
     <div class="election-title">Minnesota Legislature Forecast</div>
-    <iframe src="/elections/MN_Legislature_Forecast_2026-02-09.html" class="legislature-frame" scrolling="no"></iframe>
+    <iframe src="/elections/MN_Legislature_Forecast_latest.html" class="legislature-frame" scrolling="no"></iframe>
   </div>
 
   <div class="election-section">
     <div class="election-title">Wisconsin Legislature Forecast</div>
-    <iframe src="/elections/WI_Legislature_Forecast_2026-02-09.html" class="legislature-frame" scrolling="no"></iframe>
+    <iframe src="/elections/WI_Legislature_Forecast_latest.html" class="legislature-frame" scrolling="no"></iframe>
   </div>
 </div>
