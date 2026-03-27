@@ -14,13 +14,6 @@ cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-
 
 # Sync Election Forecasts
 
-# Sync Measles Dashboard
-echo "🦠 Syncing measles dashboard..."
-mkdir -p static/static-dashboards
-cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/MMR mapping files/measles_dashboard_multistate.html" \
-   "static/static-dashboards/measles_dashboard_multistate.html"
-echo "   - static/static-dashboards/measles_dashboard_multistate.html"
-
 # Sync Respiratory Dashboard
 echo "🫁 Syncing respiratory dashboard..."
 cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/respiratory_dashboard.html" \
