@@ -21,7 +21,7 @@ cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-
 echo "   - static/static-dashboards/respiratory_dashboard.html"
 
 echo "🗳️  Syncing election forecasts..."
-cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Election Probabilities/"*.html "static/elections/"
+cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Elections/State Legislature Forecast/output/"*.html "static/elections/"
 
 # Verify both dated and latest versions exist
 echo "🔍 Verifying election forecast files..."

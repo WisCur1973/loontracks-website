@@ -262,15 +262,15 @@
 
         <div class="stats-bar">
             <div class="stat-box">
-                <div class="stat-number">13</div>
+                <div class="stat-number">7</div>
                 <div class="stat-label">Active Cases</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">3</div>
+                <div class="stat-number">2</div>
                 <div class="stat-label">Affected States</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">7</div>
+                <div class="stat-number">4</div>
                 <div class="stat-label">Affected Counties</div>
             </div>
         </div>
@@ -297,14 +297,14 @@
                     
                 <tr class="outbreak">
                     <td><strong>North Dakota</strong></td>
-                    <td class="cases-cell">4</td>
-                    <td class="county-cell">4</td>
+                    <td class="cases-cell">2</td>
+                    <td class="county-cell">2</td>
                     <td class="status-cell">⚠️ Active</td>
                 </tr>
             
                 <tr class="outbreak">
                     <td><strong>Michigan</strong></td>
-                    <td class="cases-cell">8</td>
+                    <td class="cases-cell">5</td>
                     <td class="county-cell">2</td>
                     <td class="status-cell">⚠️ Active</td>
                 </tr>
@@ -323,11 +323,11 @@
                     <td class="status-cell">✓ No cases</td>
                 </tr>
             
-                <tr class="outbreak">
+                <tr class="no-outbreak">
                     <td><strong>South Dakota</strong></td>
-                    <td class="cases-cell">1</td>
-                    <td class="county-cell">1</td>
-                    <td class="status-cell">⚠️ Active</td>
+                    <td class="cases-cell">0</td>
+                    <td class="county-cell">0</td>
+                    <td class="status-cell">✓ No cases</td>
                 </tr>
             
                 </tbody>
@@ -356,7 +356,7 @@
     </div>
 
     <div class="last-updated">
-        Last updated: 2026-04-17 | Cases older than 6 weeks are automatically removed | Data: state health departments
+        Last updated: 2026-05-01 | Cases older than 6 weeks are automatically removed | Data: state health departments
     </div>
 
     <!-- Leaflet JavaScript -->
@@ -366,56 +366,17 @@
         // Outbreak data embedded at build time
         const outbreakData = [
         {
-                "county": "Pembina",
-                "state": "ND",
-                "lat": 48.7530787,
-                "lon": -97.5532833,
-                "cases": 1,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "1 case",
-                "total_cases": 21
-        },
-        {
-                "county": "Traill",
-                "state": "ND",
-                "lat": 47.4438504,
-                "lon": -97.1797001,
-                "cases": 1,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "1 case",
-                "total_cases": 1
-        },
-        {
                 "county": "Washtenaw",
                 "state": "MI",
                 "lat": 42.2582044,
                 "lon": -83.8440853,
-                "cases": 7,
+                "cases": 4,
                 "color": "#ffa500",
                 "fillOpacity": 0.8,
-                "radius": 10.5,
+                "radius": 10,
                 "display_status": "active",
-                "popup_text": "7 cases",
+                "popup_text": "4 cases",
                 "total_cases": 7
-        },
-        {
-                "county": "Brown",
-                "state": "SD",
-                "lat": 45.5832968,
-                "lon": -98.3674786,
-                "cases": 1,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "1 case",
-                "total_cases": 1
         },
         {
                 "county": "Monroe",
