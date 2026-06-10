@@ -1,3 +1,6 @@
+/elections/*
+  Cache-Control: no-cache, must-revalidate
+
 /models/*
   X-Frame-Options: SAMEORIGIN
   Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' data:
