@@ -44,7 +44,7 @@
 
         .gauges-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             max-width: 1600px;
             margin: 0 auto 40px auto;
@@ -88,27 +88,7 @@
             box-shadow: 0 4px 12px rgba(56, 161, 105, 0.3);
         }
 
-        /* CUTBACK GAUGE - RED THEME */
-        .cutback-gauge {
-            border-left: 6px solid #e53e3e;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
-        }
-
-        .cutback-gauge .gauge-category {
-            background: linear-gradient(135deg, #e53e3e 0%, #f56565 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
-        }
-
-        .gauge-title {
+.gauge-title {
             font-size: 1.15em;
             font-weight: 600;
             color: #1a365d;
@@ -153,24 +133,7 @@
             border: 2px solid rgba(229, 62, 62, 0.2);
         }
 
-        /* CUTBACK PROBABILITY VALUES - RED THEME */
-        .cutback-high {
-            color: #c53030;
-            background: linear-gradient(135deg, rgba(229, 62, 62, 0.2) 0%, rgba(245, 101, 101, 0.15) 100%);
-            border: 2px solid rgba(229, 62, 62, 0.3);
-        }
-        .cutback-med {
-            color: #d69e2e;
-            background: linear-gradient(135deg, rgba(214, 158, 46, 0.2) 0%, rgba(237, 137, 54, 0.15) 100%);
-            border: 2px solid rgba(214, 158, 46, 0.3);
-        }
-        .cutback-low {
-            color: #2f855a;
-            background: linear-gradient(135deg, rgba(56, 161, 105, 0.2) 0%, rgba(72, 187, 120, 0.15) 100%);
-            border: 2px solid rgba(56, 161, 105, 0.3);
-        }
-
-        .gauge-description {
+.gauge-description {
             font-size: 0.85em;
             color: #718096;
             margin-top: 15px;
@@ -193,13 +156,7 @@
             border: 1px solid rgba(56, 161, 105, 0.2);
         }
 
-        .cutback-timeframe {
-            background: rgba(229, 62, 62, 0.1);
-            color: #c53030;
-            border: 1px solid rgba(229, 62, 62, 0.2);
-        }
-
-        .summary-section {
+.summary-section {
             background: linear-gradient(135deg, #4c51bf 0%, #667eea 100%);
             color: white;
             padding: 30px;
@@ -304,7 +261,7 @@
 <body>
     <div class="header">
         <h1 class="main-title">Minnesota Mine Forecast Dashboard</h1>
-        <p class="subtitle">6-Month Forecasts: Expansion Prospects & Industry Cutback Risk</p>
+        <p class="subtitle">6-Month Forecasts: Mine Expansion Prospects</p>
     </div>
 
     <div class="gauges-container">
@@ -342,17 +299,6 @@
             <p class="gauge-description">6-month probability of full mine restart (+5.0M tons/year)</p>
         </div>
 
-        <!-- INDUSTRY CUTBACK RISK -->
-        <div class="gauge-wrapper cutback-gauge">
-            <div class="gauge-category">CUTBACK RISK</div>
-            <h3 class="gauge-title">Industry Cutback<br>Announcements</h3>
-            <div class="gauge-container">
-                <div id="cutback-gauge"></div>
-            </div>
-            <div id="cutback-prob" class="probability-value">--</div>
-            <div class="timeframe-badge cutback-timeframe" id="cutbackTimeframe">6-Month Forecast</div>
-            <p class="gauge-description">6-month probability of further cutback announcements at operating mines</p>
-        </div>
     </div>
 
     <div class="summary-section">
@@ -362,18 +308,6 @@
                 <div class="summary-value" id="avgExpansion">--</div>
                 <div class="summary-label">Avg 6-Month Expansion Prospect</div>
             </div>
-            <div class="summary-item">
-                <div class="summary-value" id="cutbackRisk">--</div>
-                <div class="summary-label">6-Month Industry Cutback Risk</div>
-            </div>
-            <div class="summary-item">
-                <div class="summary-value" id="netSentiment">--</div>
-                <div class="summary-label">Net Market Sentiment</div>
-            </div>
-            <div class="summary-item">
-                <div class="summary-value" id="marketPhase">--</div>
-                <div class="summary-label">Current Market Phase</div>
-            </div>
         </div>
     </div>
 
@@ -382,8 +316,8 @@
         <p><strong>AISI Great Lakes Steel Production:</strong> Weekly steel production data (Column H) for demand trend analysis and oversupply pressure calculation</p>
         <p><strong>Port Stockpile Intelligence:</strong> Physical dock observations at Duluth, Two Harbors, and Silver Bay for real-time inventory pressure assessment</p>
         <p><strong>Mine Operational Analysis:</strong> Current capacity utilization, expansion feasibility, and restart complexity assessments for probability modeling</p>
-        <p><strong>Seasonal & Historical Patterns:</strong> Great Lakes shipping seasons, historical cutback announcement timing, and industry cycle analysis</p>
-        <p><strong>Integrated Probability Framework:</strong> Expansion prospects based on market capacity gaps; cutback risks based on oversupply pressure, seasonal timing, and historical context</p>
+        <p><strong>Seasonal & Historical Patterns:</strong> Great Lakes shipping seasons and industry cycle analysis</p>
+        <p><strong>Integrated Probability Framework:</strong> Expansion prospects based on market capacity gaps, stockpile pressure, and Monte Carlo port volume forecasts</p>
     </div>
 
     <div class="last-updated" id="lastUpdated">
@@ -455,58 +389,26 @@
             };
         }
 
-        function loadCutbackData() {
-            return {
-                probability: 53.0,
-                timeframe: 'LIKELY - CURRENT PEAK WINDOW',
-                timestamp: new Date().toISOString()
-            };
-        }
-
         function loadAllData() {
             const reopeningData = loadReopeningData();
-            const cutbackData = loadCutbackData();
 
             // Create gauges
             createGauge('expansion-gauge1', reopeningData.hibbing23, 'Hibbing 2/3', false);
             createGauge('expansion-gauge2', reopeningData.hibbingFull, 'Hibbing Full', false);
             createGauge('expansion-gauge3', reopeningData.minorca, 'Minorca', false);
-            createGauge('cutback-gauge', cutbackData.probability, 'Industry Cutback', true);
 
             // Update displays
             updateProbabilityDisplay('expansion-prob1', reopeningData.hibbing23, false);
             updateProbabilityDisplay('expansion-prob2', reopeningData.hibbingFull, false);
             updateProbabilityDisplay('expansion-prob3', reopeningData.minorca, false);
-            updateProbabilityDisplay('cutback-prob', cutbackData.probability, true);
 
-            // Update cutback timeframe
-            document.getElementById('cutbackTimeframe').textContent = cutbackData.timeframe;
-
-            // Calculate summary metrics
+            // Calculate summary metric
             const avgExpansion = (reopeningData.hibbing23 + reopeningData.hibbingFull + reopeningData.minorca) / 3;
-            const netSentiment = avgExpansion - cutbackData.probability;
-
             document.getElementById('avgExpansion').textContent = avgExpansion.toFixed(1) + '%';
-            document.getElementById('cutbackRisk').textContent = cutbackData.probability.toFixed(1) + '%';
-            document.getElementById('netSentiment').textContent = (netSentiment >= 0 ? '+' : '') + netSentiment.toFixed(1) + '%';
 
-            // Market phase assessment
-            let marketPhase;
-            if (netSentiment > 10) {
-                marketPhase = 'EXPANSION';
-            } else if (netSentiment > -10) {
-                marketPhase = 'BALANCED';
-            } else if (netSentiment > -25) {
-                marketPhase = 'CONTRACTION';
-            } else {
-                marketPhase = 'CRISIS';
-            }
-            document.getElementById('marketPhase').textContent = marketPhase;
-
-            // Update timestamp (use most recent)
-            const latestTimestamp = cutbackData.timestamp || reopeningData.timestamp;
+            // Update timestamp
             document.getElementById('lastUpdated').textContent =
-                `Last updated: ${new Date(latestTimestamp).toLocaleString()} | Unified mine forecast analysis`;
+                `Last updated: ${new Date(reopeningData.timestamp).toLocaleString()} | Unified mine forecast analysis`;
         }
 
         // Load data when page loads
