@@ -9,19 +9,21 @@ mkdir -p static/elections
 
 # Sync MN Iron Industry (Taconite) Dashboards
 echo "📊 Syncing taconite dashboards..."
-cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/claude taconite hybrid prototype/unified_mine_forecast_dashboard.html" "static/models/"
-cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/claude taconite hybrid prototype/port_forecasts_dashboard.html" "static/models/"
+cp "/Users/winin/Desktop/claude taconite hybrid prototype/unified_mine_forecast_dashboard.html" "static/models/"
+cp "/Users/winin/Desktop/claude taconite hybrid prototype/port_forecasts_dashboard.html" "static/models/"
 
 # Sync Election Forecasts
 
 # Sync Respiratory Dashboard
 echo "🫁 Syncing respiratory dashboard..."
-cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/respiratory_dashboard.html" \
+cp "/Users/winin/Desktop/respiratory dashboard files/respiratory_dashboard.html" \
    "static/static-dashboards/respiratory_dashboard.html"
 echo "   - static/static-dashboards/respiratory_dashboard.html"
 
 echo "🗳️  Syncing election forecasts..."
-cp "/Users/danielwinings/Library/CloudStorage/ProtonDrive-daniel@loontracks.com-folder/Elections/State Legislature Forecast/output/"*.html "static/elections/"
+cp "/Users/winin/Desktop/Election Probabilities/"Congressional_Forecast_*.html "static/elections/"
+cp "/Users/winin/Desktop/Election Probabilities/"Governor_Forecast_*.html "static/elections/"
+cp "/Users/winin/Desktop/Elections/State Legislature Forecast/output/"*.html "static/elections/"
 
 # Verify both dated and latest versions exist
 echo "🔍 Verifying election forecast files..."
