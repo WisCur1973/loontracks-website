@@ -1,6 +1,8 @@
 #!/bin/bash
 # sync-models.sh - Sync model HTML files to Hugo after each model run
 
+cd ~/Desktop/loontracks-website || { echo "❌ Could not cd to ~/Desktop/loontracks-website"; exit 1; }
+
 echo "🔄 Syncing model files to Hugo website..."
 
 # Create directories if they don't exist
