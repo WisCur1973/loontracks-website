@@ -22,6 +22,12 @@ cp "/Users/winin/Desktop/respiratory dashboard files/respiratory_dashboard.html"
    "static/static-dashboards/respiratory_dashboard.html"
 echo "   - static/static-dashboards/respiratory_dashboard.html"
 
+# Sync Measles Dashboard
+echo "🦠 Syncing measles dashboard..."
+cp "/Users/winin/Desktop/MMR mapping files/measles_dashboard_multistate.html" \
+   "static/static-dashboards/measles_dashboard_multistate.html"
+echo "   - static/static-dashboards/measles_dashboard_multistate.html"
+
 echo "🗳️  Syncing election forecasts..."
 cp "/Users/winin/Desktop/Election Probabilities/"Congressional_Forecast_*.html "static/elections/"
 cp "/Users/winin/Desktop/Election Probabilities/"Governor_Forecast_*.html "static/elections/"
