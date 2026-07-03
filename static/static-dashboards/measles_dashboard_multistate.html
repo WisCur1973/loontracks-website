@@ -257,20 +257,20 @@
 </head>
 <body>
     <div class="header">
-        <h1>🦠 Upper Midwest Measles Dashboard</h1>
+        <h1>Upper Midwest Measles Dashboard</h1>
         <div class="subtitle">Real-time County-Level Outbreak Tracking • MN, MI, WI, ND, SD</div>
 
         <div class="stats-bar">
             <div class="stat-box">
-                <div class="stat-number">6</div>
+                <div class="stat-number">4</div>
                 <div class="stat-label">Active Cases</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">2</div>
+                <div class="stat-number">3</div>
                 <div class="stat-label">Affected States</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">5</div>
+                <div class="stat-number">4</div>
                 <div class="stat-label">Affected Counties</div>
             </div>
         </div>
@@ -302,18 +302,18 @@
                     <td class="status-cell">⚠️ Active</td>
                 </tr>
             
-                <tr class="outbreak">
-                    <td><strong>Michigan</strong></td>
-                    <td class="cases-cell">4</td>
-                    <td class="county-cell">3 active, 1 resolved</td>
-                    <td class="status-cell">⚠️ Active</td>
-                </tr>
-            
                 <tr class="no-outbreak">
-                    <td><strong>Minnesota</strong></td>
+                    <td><strong>Michigan</strong></td>
                     <td class="cases-cell">0</td>
                     <td class="county-cell">0</td>
                     <td class="status-cell">✓ No cases</td>
+                </tr>
+            
+                <tr class="outbreak">
+                    <td><strong>Minnesota</strong></td>
+                    <td class="cases-cell">1</td>
+                    <td class="county-cell">1</td>
+                    <td class="status-cell">⚠️ Active</td>
                 </tr>
             
                 <tr class="no-outbreak">
@@ -323,15 +323,28 @@
                     <td class="status-cell">✓ No cases</td>
                 </tr>
             
-                <tr class="no-outbreak">
+                <tr class="outbreak">
                     <td><strong>South Dakota</strong></td>
-                    <td class="cases-cell">0</td>
-                    <td class="county-cell">0</td>
-                    <td class="status-cell">✓ No cases</td>
+                    <td class="cases-cell">1</td>
+                    <td class="county-cell">1</td>
+                    <td class="status-cell">⚠️ Active</td>
                 </tr>
             
                 </tbody>
             </table>
+
+            <div class="disclaimer">
+                <div class="disclaimer-header">
+                    ⚠️ Data updated weekly. For the most current information, visit your state health department:
+                </div>
+                <ul class="disclaimer-links">
+                    <li><a href="https://health.state.mn.us/diseases/measles/stats.html" target="_blank">Minnesota</a>: health.state.mn.us/diseases/measles/stats.html</li>
+                    <li><a href="https://michigan.gov/mdhhs/adult-child-serv/childrenfamilies/immunizations/measlesupdates" target="_blank">Michigan</a>: michigan.gov/mdhhs/adult-child-serv/childrenfamilies/immunizations/measlesupdates</li>
+                    <li><a href="https://dhs.wisconsin.gov/outbreaks/index.htm" target="_blank">Wisconsin</a>: dhs.wisconsin.gov/outbreaks/index.htm</li>
+                    <li><a href="https://hhs.nd.gov/immunizations/measles" target="_blank">North Dakota</a>: hhs.nd.gov/immunizations/measles</li>
+                    <li><a href="https://doh.sd.gov/diseases/measles/" target="_blank">South Dakota</a>: doh.sd.gov/diseases/measles/</li>
+                </ul>
+            </div>
 
             <div class="section-title">Legend</div>
             <div class="legend">
@@ -356,7 +369,7 @@
     </div>
 
     <div class="last-updated">
-        Last updated: 2026-05-14 | Cases older than 6 weeks are automatically removed | Data: state health departments
+        Built: 2026-04-10 at 8:22 AM | Data updated: 2026-04-03 | Cases older than 6 weeks are automatically removed | Data: state health departments
     </div>
 
     <!-- Leaflet JavaScript -->
@@ -366,78 +379,52 @@
         // Outbreak data embedded at build time
         const outbreakData = [
         {
-                "county": "Washtenaw",
-                "state": "MI",
-                "lat": 42.2582044,
-                "lon": -83.8440853,
-                "cases": 0,
-                "color": "#cccccc",
-                "fillOpacity": 0.4,
-                "radius": 10,
-                "display_status": "resolved",
-                "popup_text": "Outbreak resolved (7 cases reported)",
-                "total_cases": 7
-        },
-        {
-                "county": "Monroe",
-                "state": "MI",
-                "lat": 41.9153358,
-                "lon": -83.5135665,
-                "cases": 1,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "1 case",
-                "total_cases": 1
-        },
-        {
-                "county": "Grand Forks",
+                "county": "Pembina",
                 "state": "ND",
-                "lat": 47.9090529,
-                "lon": -97.4800435,
+                "lat": 48.9667,
+                "lon": -97.239,
                 "cases": 1,
                 "color": "#ffffcc",
-                "fillOpacity": 0.7,
+                "fillOpacity": 0.75,
                 "radius": 8,
                 "display_status": "active",
                 "popup_text": "1 case",
-                "total_cases": 1
+                "total_cases": 21
         },
         {
-                "county": "Macomb",
-                "state": "MI",
-                "lat": 42.6741189,
-                "lon": -82.902901,
-                "cases": 1,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "1 case",
-                "total_cases": 1
-        },
-        {
-                "county": "Ottawa",
-                "state": "MI",
-                "lat": 42.9547143,
-                "lon": -85.9827867,
-                "cases": 2,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "2 cases",
-                "total_cases": 2
-        },
-        {
-                "county": "Grand Rapids",
+                "county": "Traill",
                 "state": "ND",
-                "lat": 46.4444168,
-                "lon": -98.3706524,
+                "lat": 47.2953,
+                "lon": -97.1465,
                 "cases": 1,
                 "color": "#ffffcc",
-                "fillOpacity": 0.7,
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Anoka",
+                "state": "MN",
+                "lat": 45.198,
+                "lon": -93.2108,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
+                "radius": 8,
+                "display_status": "active",
+                "popup_text": "1 case",
+                "total_cases": 1
+        },
+        {
+                "county": "Brown",
+                "state": "SD",
+                "lat": 45.6499,
+                "lon": -98.4895,
+                "cases": 1,
+                "color": "#ffffcc",
+                "fillOpacity": 0.75,
                 "radius": 8,
                 "display_status": "active",
                 "popup_text": "1 case",
