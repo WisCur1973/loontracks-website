@@ -49,5 +49,10 @@ echo ""
 echo "🔄 Auto-committing and pushing to GitHub..."
 git add static/models/ static/elections/ static/static-dashboards/
 git commit -m "Auto-update: Model forecasts $(date '+%Y-%m-%d %H:%M:%S')"
-git push origin main
-echo "✅ Changes pushed to GitHub!"
+if git push origin main; then
+    echo "✅ Changes pushed to GitHub!"
+else
+    echo "❌ git push FAILED — changes are committed locally but NOT on GitHub."
+    echo "   Fix the push (e.g. 'git pull' to reconcile) and run 'git push origin main' again."
+    exit 1
+fi
