@@ -182,9 +182,10 @@
         .prob-col { width: 75px; }
         .rating-col { width: 90px; font-size: 12px; }
         .inc-col { width: 40px; text-align: center; }
-        .d-cand { color: #0571b0; font-weight: 500; }
-        .r-cand { color: #ca0020; font-weight: 500; }
-        .tbd { color: #94a3b8; font-style: italic; }
+        .d-cand, .r-cand { background: rgba(255,255,255,0.88); padding: 1px 5px; border-radius: 3px; font-weight: 600; }
+        .d-cand { color: #0571b0; }
+        .r-cand { color: #ca0020; }
+        .tbd { background: rgba(255,255,255,0.7); color: #64748b; padding: 1px 5px; border-radius: 3px; font-style: italic; }
 
         .forecast-table tbody tr {
             transition: transform 0.1s, box-shadow 0.1s;
@@ -337,14 +338,14 @@
 
             <div class="rating-bar">
                 <span class="safe-d" style="flex: 33">33</span>
-                <span class="likely-d" style="flex: 27">27</span>
-                <span class="lean-d" style="flex: 13">13</span>
+                <span class="likely-d" style="flex: 26">26</span>
+                <span class="lean-d" style="flex: 14">14</span>
                 <span class="tilt-d" style="flex: 0"></span>
                 <span class="tossup" style="flex: 3">3</span>
                 <span class="tilt-r" style="flex: 0"></span>
                 <span class="lean-r" style="flex: 10">10</span>
-                <span class="likely-r" style="flex: 19">19</span>
-                <span class="safe-r" style="flex: 29">29</span>
+                <span class="likely-r" style="flex: 22">22</span>
+                <span class="safe-r" style="flex: 26">26</span>
             </div>
 
             <table class="forecast-table">
@@ -382,7 +383,7 @@
                 <td class="dist-col">2A</td>
                 <td class="cand-col"><span class='d-cand'>Reed Olson</span> vs <span class='r-cand'>Bidal Duran</span></td>
                 <td class="margin-col">R+8.9</td>
-                <td class="prob-col">79% R</td>
+                <td class="prob-col">78% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -392,7 +393,7 @@
                 <td class="cand-col"><span class='d-cand'>Emily Thabes</span> vs <span class='r-cand'>Matt Bliss</span></td>
                 <td class="margin-col">R+16.7</td>
                 <td class="prob-col">95% R</td>
-                <td class="rating-col">Safe R</td>
+                <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
             
@@ -445,7 +446,7 @@
                 <td class="dist-col">5B</td>
                 <td class="cand-col"><span class='d-cand'>Maggie Evers</span> vs <span class='r-cand'>Jonathan Claussen</span></td>
                 <td class="margin-col">R+18.0</td>
-                <td class="prob-col">93% R</td>
+                <td class="prob-col">92% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -454,7 +455,7 @@
                 <td class="dist-col">6A</td>
                 <td class="cand-col"><span class='d-cand'>Samuel Patrick Grigsby</span> vs <span class='r-cand'>Ben Davis</span></td>
                 <td class="margin-col">R+9.0</td>
-                <td class="prob-col">77% R</td>
+                <td class="prob-col">76% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -472,7 +473,7 @@
                 <td class="dist-col">7A</td>
                 <td class="cand-col"><span class='d-cand'>Erin Ningen</span> vs <span class='r-cand'>Spencer Igo</span></td>
                 <td class="margin-col">D+5.3</td>
-                <td class="prob-col">67% D</td>
+                <td class="prob-col">66% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -481,7 +482,7 @@
                 <td class="dist-col">7B</td>
                 <td class="cand-col"><span class='d-cand'>Dan Horoshak</span> vs <span class='r-cand'>Cal Warwas</span></td>
                 <td class="margin-col">D+8.6</td>
-                <td class="prob-col">76% D</td>
+                <td class="prob-col">75% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -490,7 +491,7 @@
                 <td class="dist-col">8A</td>
                 <td class="cand-col"><span class='d-cand'>Pete Johnson</span> vs <span class='r-cand'>Allan Kehr II</span></td>
                 <td class="margin-col">D+11.8</td>
-                <td class="prob-col">84% D</td>
+                <td class="prob-col">82% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -499,7 +500,7 @@
                 <td class="dist-col">8B</td>
                 <td class="cand-col"><span class='d-cand'>Alicia Kozlowski</span> vs <span class='r-cand'>Shawn Savela</span></td>
                 <td class="margin-col">D+12.0</td>
-                <td class="prob-col">84% D</td>
+                <td class="prob-col">83% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -535,7 +536,7 @@
                 <td class="dist-col">10B</td>
                 <td class="cand-col"><span class='d-cand'>Jeff Larson</span> vs <span class='r-cand'>Isaac Schultz</span></td>
                 <td class="margin-col">R+26.6</td>
-                <td class="prob-col">98% R</td>
+                <td class="prob-col">99% R</td>
                 <td class="rating-col">Safe R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -544,7 +545,7 @@
                 <td class="dist-col">11A</td>
                 <td class="cand-col"><span class='d-cand'>Chris Swanson</span> vs <span class='r-cand'>Jeff Dotseth</span></td>
                 <td class="margin-col">D+2.4</td>
-                <td class="prob-col">58% D</td>
+                <td class="prob-col">57% D</td>
                 <td class="rating-col">Tossup</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -553,7 +554,7 @@
                 <td class="dist-col">11B</td>
                 <td class="cand-col"><span class='d-cand'>Jack L'Heureux</span> vs <span class='r-cand'>Nathan Nelson</span></td>
                 <td class="margin-col">R+18.8</td>
-                <td class="prob-col">95% R</td>
+                <td class="prob-col">94% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -607,7 +608,7 @@
                 <td class="dist-col">14B</td>
                 <td class="cand-col"><span class='d-cand'>Zach Dorholt</span> vs <span class='r-cand'>Sue Ek</span></td>
                 <td class="margin-col">D+9.1</td>
-                <td class="prob-col">84% D</td>
+                <td class="prob-col">83% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -688,7 +689,7 @@
                 <td class="dist-col">19A</td>
                 <td class="cand-col"><span class='d-cand'>Martha Brown</span> vs <span class='r-cand'>Keith Allen</span></td>
                 <td class="margin-col">R+12.1</td>
-                <td class="prob-col">84% R</td>
+                <td class="prob-col">83% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -706,7 +707,7 @@
                 <td class="dist-col">20A</td>
                 <td class="cand-col"><span class='d-cand'>Heather Arndt</span> vs <span class='r-cand'>Pam Altendorf</span></td>
                 <td class="margin-col">R+14.3</td>
-                <td class="prob-col">93% R</td>
+                <td class="prob-col">92% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -724,7 +725,7 @@
                 <td class="dist-col">21A</td>
                 <td class="cand-col"><span class='d-cand'>Rusty Nelson</span> vs <span class='r-cand'>Krist Wollum</span></td>
                 <td class="margin-col">R+18.4</td>
-                <td class="prob-col">95% R</td>
+                <td class="prob-col">94% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -769,7 +770,7 @@
                 <td class="dist-col">23B</td>
                 <td class="cand-col"><span class='d-cand'>Christoph Dundas</span> vs <span class='r-cand'>Patricia Mueller</span></td>
                 <td class="margin-col">R+13.1</td>
-                <td class="prob-col">91% R</td>
+                <td class="prob-col">90% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -778,7 +779,7 @@
                 <td class="dist-col">24A</td>
                 <td class="cand-col"><span class='d-cand'>Heather Holmes</span> vs <span class='r-cand'>Duane Quam</span></td>
                 <td class="margin-col">R+15.7</td>
-                <td class="prob-col">95% R</td>
+                <td class="prob-col">94% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -787,7 +788,7 @@
                 <td class="dist-col">24B</td>
                 <td class="cand-col"><span class='d-cand'>Tina Liebling</span> vs <span class='r-cand'>John Michael Ajouri</span></td>
                 <td class="margin-col">D+9.9</td>
-                <td class="prob-col">79% D</td>
+                <td class="prob-col">78% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -796,8 +797,8 @@
                 <td class="dist-col">25A</td>
                 <td class="cand-col"><span class='d-cand'>Kim Hicks</span> vs <span class='r-cand'>Brad Trahan</span></td>
                 <td class="margin-col">D+9.6</td>
-                <td class="prob-col">80% D</td>
-                <td class="rating-col">Likely D</td>
+                <td class="prob-col">79% D</td>
+                <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
             
@@ -805,7 +806,7 @@
                 <td class="dist-col">25B</td>
                 <td class="cand-col"><span class='d-cand'>Andy Smith</span> vs <span class='r-cand'>Wes Lund</span></td>
                 <td class="margin-col">D+15.9</td>
-                <td class="prob-col">95% D</td>
+                <td class="prob-col">94% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -823,7 +824,7 @@
                 <td class="dist-col">26B</td>
                 <td class="cand-col"><span class='d-cand'>Allie Wolf</span> vs <span class='r-cand'>Greg Davids</span></td>
                 <td class="margin-col">R+12.3</td>
-                <td class="prob-col">90% R</td>
+                <td class="prob-col">89% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -832,8 +833,8 @@
                 <td class="dist-col">27A</td>
                 <td class="cand-col"><span class='d-cand'>Vanessa Davenport</span> vs <span class='r-cand'>Shane Mekeland</span></td>
                 <td class="margin-col">R+20.0</td>
-                <td class="prob-col">95% R</td>
-                <td class="rating-col">Safe R</td>
+                <td class="prob-col">94% R</td>
+                <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
             
@@ -877,7 +878,7 @@
                 <td class="dist-col">29B</td>
                 <td class="cand-col"><span class='d-cand'>Marcus Claxton</span> vs <span class='r-cand'>Marion Rarick</span></td>
                 <td class="margin-col">R+18.1</td>
-                <td class="prob-col">97% R</td>
+                <td class="prob-col">96% R</td>
                 <td class="rating-col">Safe R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -905,7 +906,7 @@
                 <td class="cand-col"><span class='d-cand'>Brian Walker</span> vs <span class='r-cand'>Harry Niska</span></td>
                 <td class="margin-col">R+17.7</td>
                 <td class="prob-col">95% R</td>
-                <td class="rating-col">Safe R</td>
+                <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
             
@@ -949,7 +950,7 @@
                 <td class="dist-col">33B</td>
                 <td class="cand-col"><span class='d-cand'>Josiah Hill</span> vs <span class='r-cand'>Jessica L. Johnson</span></td>
                 <td class="margin-col">D+9.0</td>
-                <td class="prob-col">80% D</td>
+                <td class="prob-col">79% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -967,7 +968,7 @@
                 <td class="dist-col">34B</td>
                 <td class="cand-col"><span class='d-cand'>Xp Lee</span> vs <span class='r-cand'>Ruth Bittner</span></td>
                 <td class="margin-col">D+12.6</td>
-                <td class="prob-col">85% D</td>
+                <td class="prob-col">84% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -994,7 +995,7 @@
                 <td class="dist-col">36A</td>
                 <td class="cand-col"><span class='d-cand'>Jim DeMay</span> vs <span class='r-cand'>Sebastian Stoss</span></td>
                 <td class="margin-col">R+4.9</td>
-                <td class="prob-col">70% R</td>
+                <td class="prob-col">69% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1003,7 +1004,7 @@
                 <td class="dist-col">36B</td>
                 <td class="cand-col"><span class='d-cand'>Brion Curran</span> vs <span class='r-cand'>Patty Bradway</span></td>
                 <td class="margin-col">D+10.6</td>
-                <td class="prob-col">86% D</td>
+                <td class="prob-col">85% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1012,7 +1013,7 @@
                 <td class="dist-col">37A</td>
                 <td class="cand-col"><span class='d-cand'>Darci Smith</span> vs <span class='r-cand'>Tom McKee</span></td>
                 <td class="margin-col">R+4.7</td>
-                <td class="prob-col">66% R</td>
+                <td class="prob-col">67% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1084,7 +1085,7 @@
                 <td class="dist-col">41A</td>
                 <td class="cand-col"><span class='d-cand'>Cole Birkeland</span> vs <span class='r-cand'>Wayne Johnson</span></td>
                 <td class="margin-col">D+6.8</td>
-                <td class="prob-col">73% D</td>
+                <td class="prob-col">72% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1102,7 +1103,7 @@
                 <td class="dist-col">42A</td>
                 <td class="cand-col"><span class='d-cand'>Ned Carroll</span> vs <span class='r-cand'>Kathy Burkett</span></td>
                 <td class="margin-col">D+11.6</td>
-                <td class="prob-col">89% D</td>
+                <td class="prob-col">88% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1309,7 +1310,7 @@
                 <td class="dist-col">53B</td>
                 <td class="cand-col"><span class='d-cand'>Rick Hansen</span> vs <span class='r-cand'>Patti Mikulski</span></td>
                 <td class="margin-col">D+11.2</td>
-                <td class="prob-col">84% D</td>
+                <td class="prob-col">83% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1345,7 +1346,7 @@
                 <td class="dist-col">55B</td>
                 <td class="cand-col"><span class='d-cand'>Hunter Cantrell</span> vs <span class='r-cand'>Todd Buchwald</span></td>
                 <td class="margin-col">D+9.8</td>
-                <td class="prob-col">79% D</td>
+                <td class="prob-col">78% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1616,7 +1617,7 @@
                 <td class="dist-col">1</td>
                 <td class="cand-col"><span class='d-cand'>Bjorn Solberg</span> vs <span class='r-cand'>Mark Johnson</span></td>
                 <td class="margin-col">R+16.8</td>
-                <td class="prob-col">92% R</td>
+                <td class="prob-col">91% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1634,7 +1635,7 @@
                 <td class="dist-col">3</td>
                 <td class="cand-col"><span class='d-cand'>Grant Hauschild</span> vs <span class='r-cand'>Andrea Zupancich</span></td>
                 <td class="margin-col">D+10.6</td>
-                <td class="prob-col">83% D</td>
+                <td class="prob-col">82% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1643,7 +1644,7 @@
                 <td class="dist-col">4</td>
                 <td class="cand-col"><span class='d-cand'>Rob Kupec</span> vs <span class='r-cand'>Austin Peterson</span></td>
                 <td class="margin-col">D+8.8</td>
-                <td class="prob-col">88% D</td>
+                <td class="prob-col">87% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1661,7 +1662,7 @@
                 <td class="dist-col">6</td>
                 <td class="cand-col"><span class='d-cand'>Denise Slipy</span> vs <span class='r-cand'>Keri Heintzeman</span></td>
                 <td class="margin-col">R+3.4</td>
-                <td class="prob-col">61% R</td>
+                <td class="prob-col">62% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1679,7 +1680,7 @@
                 <td class="dist-col">8</td>
                 <td class="cand-col"><span class='d-cand'>Jen McEwen</span> vs <span class='r-cand'>Darrick Law</span></td>
                 <td class="margin-col">D+10.7</td>
-                <td class="prob-col">81% D</td>
+                <td class="prob-col">80% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1733,7 +1734,7 @@
                 <td class="dist-col">14</td>
                 <td class="cand-col"><span class='d-cand'>Aric Putnam</span> vs <span class='r-cand'>Bernie Perryman</span></td>
                 <td class="margin-col">D+7.5</td>
-                <td class="prob-col">83% D</td>
+                <td class="prob-col">82% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1751,7 +1752,7 @@
                 <td class="dist-col">16</td>
                 <td class="cand-col"><span class='d-cand'>Kathy Jorgenson</span> vs <span class='r-cand'>Andrew Lang</span></td>
                 <td class="margin-col">R+20.9</td>
-                <td class="prob-col">96% R</td>
+                <td class="prob-col">95% R</td>
                 <td class="rating-col">Safe R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1760,7 +1761,7 @@
                 <td class="dist-col">17</td>
                 <td class="cand-col"><span class='d-cand'>Julie Kelzer</span> vs <span class='r-cand'>Glenn Gruenhagen</span></td>
                 <td class="margin-col">R+19.8</td>
-                <td class="prob-col">95% R</td>
+                <td class="prob-col">94% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1769,7 +1770,7 @@
                 <td class="dist-col">18</td>
                 <td class="cand-col"><span class='d-cand'>Nick Frentz</span> vs <span class='r-cand'>Jackie Henry</span></td>
                 <td class="margin-col">D+3.6</td>
-                <td class="prob-col">62% D</td>
+                <td class="prob-col">61% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1778,7 +1779,7 @@
                 <td class="dist-col">19</td>
                 <td class="cand-col"><span class='d-cand'>Adama Doumbouya</span> vs <span class='r-cand'>John Jasinski</span></td>
                 <td class="margin-col">R+7.2</td>
-                <td class="prob-col">72% R</td>
+                <td class="prob-col">73% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1787,7 +1788,7 @@
                 <td class="dist-col">20</td>
                 <td class="cand-col"><span class='d-cand'>Jason Lohmann</span> vs <span class='r-cand'>Steven Jacob</span></td>
                 <td class="margin-col">R+12.6</td>
-                <td class="prob-col">89% R</td>
+                <td class="prob-col">88% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1832,7 +1833,7 @@
                 <td class="dist-col">25</td>
                 <td class="cand-col"><span class='d-cand'>Liz Boldon</span> vs <span class='r-cand'>John Howie</span></td>
                 <td class="margin-col">D+10.6</td>
-                <td class="prob-col">81% D</td>
+                <td class="prob-col">80% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1859,7 +1860,7 @@
                 <td class="dist-col">28</td>
                 <td class="cand-col"><span class='d-cand'>Max Glenna</span> vs <span class='r-cand'>Mark Koran</span></td>
                 <td class="margin-col">R+16.9</td>
-                <td class="prob-col">96% R</td>
+                <td class="prob-col">95% R</td>
                 <td class="rating-col">Safe R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1886,7 +1887,7 @@
                 <td class="dist-col">31</td>
                 <td class="cand-col"><span class='d-cand'>Gadisa Berkessa</span> vs <span class='r-cand'>Calvin Bahr</span></td>
                 <td class="margin-col">R+20.0</td>
-                <td class="prob-col">98% R</td>
+                <td class="prob-col">97% R</td>
                 <td class="rating-col">Safe R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1904,7 +1905,7 @@
                 <td class="dist-col">33</td>
                 <td class="cand-col"><span class='d-cand'>Nat Smith</span> vs <span class='r-cand'>Karin Housley</span></td>
                 <td class="margin-col">R+8.6</td>
-                <td class="prob-col">80% R</td>
+                <td class="prob-col">81% R</td>
                 <td class="rating-col">Likely R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -1913,7 +1914,7 @@
                 <td class="dist-col">34</td>
                 <td class="cand-col"><span class='d-cand'>John Hoffman</span> vs <span class='r-cand'>Karen Attia</span></td>
                 <td class="margin-col">D+9.3</td>
-                <td class="prob-col">80% D</td>
+                <td class="prob-col">79% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1931,7 +1932,7 @@
                 <td class="dist-col">36</td>
                 <td class="cand-col"><span class='d-cand'>Heather Gustafson</span> vs <span class='r-cand'>Heidi Heino</span></td>
                 <td class="margin-col">D+9.2</td>
-                <td class="prob-col">87% D</td>
+                <td class="prob-col">86% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1949,7 +1950,7 @@
                 <td class="dist-col">38</td>
                 <td class="cand-col"><span class='d-cand'>Susan Pha</span> vs <span class='r-cand'>Brad Olson</span></td>
                 <td class="margin-col">D+12.3</td>
-                <td class="prob-col">85% D</td>
+                <td class="prob-col">84% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -1958,7 +1959,7 @@
                 <td class="dist-col">39</td>
                 <td class="cand-col"><span class='d-cand'>Mary Kunesh-Podein</span> vs <span class='r-cand'>Pam Wolf</span></td>
                 <td class="margin-col">D+11.8</td>
-                <td class="prob-col">84% D</td>
+                <td class="prob-col">82% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2003,7 +2004,7 @@
                 <td class="dist-col">44</td>
                 <td class="cand-col"><span class='d-cand'>Teresa Miller</span> vs <span class='r-cand'>James Tacheny</span></td>
                 <td class="margin-col">D+12.1</td>
-                <td class="prob-col">90% D</td>
+                <td class="prob-col">89% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2012,7 +2013,7 @@
                 <td class="dist-col">45</td>
                 <td class="cand-col"><span class='d-cand'>Ann Johnson Stewart</span> vs <span class='r-cand'>Shannon Bruce</span></td>
                 <td class="margin-col">D+12.1</td>
-                <td class="prob-col">86% D</td>
+                <td class="prob-col">85% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2030,7 +2031,7 @@
                 <td class="dist-col">47</td>
                 <td class="cand-col"><span class='d-cand'>Amanda Hemmingsen-Jaeger</span> vs <span class='r-cand'>Brian Stalboerger</span></td>
                 <td class="margin-col">D+9.3</td>
-                <td class="prob-col">78% D</td>
+                <td class="prob-col">77% D</td>
                 <td class="rating-col">Lean D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2039,7 +2040,7 @@
                 <td class="dist-col">48</td>
                 <td class="cand-col"><span class='d-cand'>Dan Kessler</span> vs <span class='r-cand'>Julia Coleman</span></td>
                 <td class="margin-col">R+0.9</td>
-                <td class="prob-col">53% R</td>
+                <td class="prob-col">54% R</td>
                 <td class="rating-col">Tossup</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -2048,7 +2049,7 @@
                 <td class="dist-col">49</td>
                 <td class="cand-col"><span class='d-cand'>Krish Subrahmanian</span> vs <span class='r-cand'>Dustin DuFault</span></td>
                 <td class="margin-col">D+15.1</td>
-                <td class="prob-col">93% D</td>
+                <td class="prob-col">92% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2066,7 +2067,7 @@
                 <td class="dist-col">51</td>
                 <td class="cand-col"><span class='d-cand'>Simon Trautmann Cordova</span> vs <span class='r-cand'>Juline Birgersson</span></td>
                 <td class="margin-col">D+18.6</td>
-                <td class="prob-col">94% D</td>
+                <td class="prob-col">93% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2084,7 +2085,7 @@
                 <td class="dist-col">53</td>
                 <td class="cand-col"><span class='d-cand'>Paul Cumings</span> vs <span class='r-cand'>Todd Podgorski</span></td>
                 <td class="margin-col">D+10.5</td>
-                <td class="prob-col">88% D</td>
+                <td class="prob-col">87% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2111,7 +2112,7 @@
                 <td class="dist-col">56</td>
                 <td class="cand-col"><span class='d-cand'>Erin Maye Quade</span> vs <span class='r-cand'>Julida Alter</span></td>
                 <td class="margin-col">D+10.1</td>
-                <td class="prob-col">83% D</td>
+                <td class="prob-col">82% D</td>
                 <td class="rating-col">Likely D</td>
                 <td class="inc-col">D</td>
             </tr>
@@ -2120,7 +2121,7 @@
                 <td class="dist-col">57</td>
                 <td class="cand-col"><span class='d-cand'>Steven Schroer</span> vs <span class='r-cand'>Zach Duckworth</span></td>
                 <td class="margin-col">R+3.8</td>
-                <td class="prob-col">63% R</td>
+                <td class="prob-col">64% R</td>
                 <td class="rating-col">Lean R</td>
                 <td class="inc-col">R</td>
             </tr>
@@ -2228,7 +2229,7 @@
             </div>
         </div>
         <div class="footer-copyright">
-            &copy; 2026 Loon Tracks. Generated 2026-08-05 07:05.
+            &copy; 2026 Loon Tracks. Generated 2026-08-05 08:28.
         </div>
     </div>
 
