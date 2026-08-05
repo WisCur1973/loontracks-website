@@ -31,7 +31,12 @@ echo "   - static/static-dashboards/measles_dashboard_multistate.html"
 echo "🗳️  Syncing election forecasts..."
 cp "/Users/winin/Desktop/Election Probabilities/"Congressional_Forecast_*.html "static/elections/"
 cp "/Users/winin/Desktop/Election Probabilities/"Governor_Forecast_*.html "static/elections/"
-cp "/Users/winin/Desktop/Elections/State Legislature Forecast/output/"*.html "static/elections/"
+# State legislature: source from Election Probabilities (has both dated AND _latest_
+# files). The old output/ dir held only dated files, so the _latest_ legislature
+# pages never got published and went stale.
+cp "/Users/winin/Desktop/Election Probabilities/"MI_Legislature_Forecast_*.html "static/elections/"
+cp "/Users/winin/Desktop/Election Probabilities/"MN_Legislature_Forecast_*.html "static/elections/"
+cp "/Users/winin/Desktop/Election Probabilities/"WI_Legislature_Forecast_*.html "static/elections/"
 
 # Verify both dated and latest versions exist
 echo "🔍 Verifying election forecast files..."
