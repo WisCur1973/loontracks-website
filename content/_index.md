@@ -47,29 +47,29 @@ markup: html
   <div class="center-column">
     <div class="preview-carousel" role="region" aria-label="Forecast previews" aria-roledescription="carousel">
       <div class="carousel-track">
-        <a class="carousel-slide" href="/congress/" aria-label="Wisconsin Congressional Forecast">
-          <img src="/previews/congressional_wi.png" alt="Wisconsin congressional district forecast map" loading="lazy">
-          <div class="carousel-caption">Wisconsin Congressional Forecast</div>
-        </a>
-        <a class="carousel-slide" href="/congress/" aria-label="Michigan Congressional Forecast">
-          <img src="/previews/congressional_mi.png" alt="Michigan congressional district forecast map" loading="lazy">
-          <div class="carousel-caption">Michigan Congressional Forecast</div>
+        <a class="carousel-slide" href="/governor/" aria-label="Governor races forecast">
+          <img src="/previews/governor.png" alt="Governor race win-probability forecast for Michigan, Minnesota, and Wisconsin" loading="lazy">
+          <div class="carousel-caption">Governor Races — MI · MN · WI</div>
         </a>
         <a class="carousel-slide" href="/congress/" aria-label="Minnesota Congressional Forecast">
           <img src="/previews/congressional_mn.png" alt="Minnesota congressional district forecast map" loading="lazy">
           <div class="carousel-caption">Minnesota Congressional Forecast</div>
         </a>
-        <a class="carousel-slide" href="/governor/" aria-label="Governor races forecast">
-          <img src="/previews/governor.png" alt="Governor race win-probability forecast for Michigan, Minnesota, and Wisconsin" loading="lazy">
-          <div class="carousel-caption">Governor Races — MI · MN · WI</div>
-        </a>
         <a class="carousel-slide" href="/wi-legislature/" aria-label="Wisconsin Legislature Forecast">
           <img src="/previews/wi_legislature.png" alt="Wisconsin state legislature seat forecast" loading="lazy">
           <div class="carousel-caption">Wisconsin Legislature Forecast</div>
         </a>
+        <a class="carousel-slide" href="/congress/" aria-label="Wisconsin Congressional Forecast">
+          <img src="/previews/congressional_wi.png" alt="Wisconsin congressional district forecast map" loading="lazy">
+          <div class="carousel-caption">Wisconsin Congressional Forecast</div>
+        </a>
         <a class="carousel-slide" href="/mi-legislature/" aria-label="Michigan Legislature Forecast">
           <img src="/previews/mi_legislature.png" alt="Michigan state legislature seat forecast" loading="lazy">
           <div class="carousel-caption">Michigan Legislature Forecast</div>
+        </a>
+        <a class="carousel-slide" href="/congress/" aria-label="Michigan Congressional Forecast">
+          <img src="/previews/congressional_mi.png" alt="Michigan congressional district forecast map" loading="lazy">
+          <div class="carousel-caption">Michigan Congressional Forecast</div>
         </a>
         <a class="carousel-slide" href="/mn-legislature/" aria-label="Minnesota Legislature Forecast">
           <img src="/previews/mn_legislature.png" alt="Minnesota state legislature seat forecast" loading="lazy">
