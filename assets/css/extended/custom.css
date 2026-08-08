@@ -17,34 +17,107 @@
     gap: 20px;
 }
 
-/* Center column - full height news tile */
+/* Center column - full-height forecast preview carousel */
 .post-content .center-column {
     display: flex;
     align-items: stretch;
     min-height: 0;
 }
 
-.post-content .news-tile {
-    border-radius: 12px;
-    padding: 30px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
+.post-content .preview-carousel {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 10px;
     width: 100%;
-    min-height: 0;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    min-height: 520px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.post-content .news-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+.post-content .carousel-track {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.post-content .carousel-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 18px 18px 0;
+    text-decoration: none;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+}
+
+.post-content .carousel-slide.active {
+    opacity: 1;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+.post-content .carousel-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.post-content .carousel-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 34px 16px 14px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.72));
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    pointer-events: none;
+}
+
+.post-content .carousel-dots {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #fff;
+    border-top: 1px solid #edf0f2;
+}
+
+.post-content .carousel-dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #cbd5e0;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.post-content .carousel-dot:hover {
+    background: #a0aec0;
+}
+
+.post-content .carousel-dot.active {
+    background: #3182ce;
+    transform: scale(1.3);
 }
 
 /* Right column - stacks individual tiles vertically */
@@ -315,6 +388,15 @@
         font-size: 16px;
         padding: 20px 15px;
         min-height: 60px;
+    }
+
+    .post-content .preview-carousel {
+        min-height: 380px;
+    }
+
+    .post-content .carousel-caption {
+        font-size: 14px;
+        padding: 28px 14px 12px;
     }
 }
 

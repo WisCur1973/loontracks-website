@@ -49,6 +49,14 @@ for file in "${latest_files[@]}"; do
     fi
 done
 
+# Regenerate homepage carousel preview images from the freshly-synced dashboards.
+# Uses framework python (has disk access under launchd) + Playwright/Chromium.
+# Never fatal: on failure we keep the previously generated previews.
+echo "🖼️  Building homepage carousel previews..."
+PYBIN="/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
+[ -x "$PYBIN" ] || PYBIN="python3"
+"$PYBIN" build_previews.py || echo "   ⚠️  preview build failed — keeping existing previews"
+
 echo "✅ All model files synced successfully!"
 echo "📁 Files copied to:"
 echo "   - static/models/unified_mine_forecast_dashboard.html"
@@ -58,7 +66,7 @@ echo ""
 
 # Auto-commit and push to GitHub
 echo "🔄 Auto-committing and pushing to GitHub..."
-git add static/models/ static/elections/ static/static-dashboards/
+git add static/models/ static/elections/ static/static-dashboards/ static/previews/
 git commit -m "Auto-update: Model forecasts $(date '+%Y-%m-%d %H:%M:%S')"
 if git push origin main; then
     echo "✅ Changes pushed to GitHub!"
