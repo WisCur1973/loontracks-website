@@ -1,6 +1,7 @@
 ---
 title: "About LoonTracks"
 description: "Learn about our approach to probability modeling and data analysis for wildlife forecasting in the upper midwest."
+draft: true  # Temporarily disabled pending rewrite. Set to false (and restore the About menu entry in hugo.yaml) to republish.
 ---
 
 # About LoonTracks

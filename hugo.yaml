@@ -44,9 +44,10 @@ menus:
     - name: "Measles"
       url: "/measles/"
       weight: 35
-    - name: "About"
-      url: "/about/"
-      weight: 40
+    # About page temporarily disabled pending rewrite — re-add this entry to restore.
+    # - name: "About"
+    #   url: "/about/"
+    #   weight: 40
 
 # PaperMod theme parameters
 params:
