@@ -262,15 +262,15 @@
 
         <div class="stats-bar">
             <div class="stat-box">
-                <div class="stat-number">1</div>
+                <div class="stat-number">0</div>
                 <div class="stat-label">Active Cases</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">1</div>
+                <div class="stat-number">0</div>
                 <div class="stat-label">Affected States</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">1</div>
+                <div class="stat-number">0</div>
                 <div class="stat-label">Affected Counties</div>
             </div>
         </div>
@@ -323,11 +323,11 @@
                     <td class="status-cell">✓ No cases</td>
                 </tr>
             
-                <tr class="outbreak">
+                <tr class="no-outbreak">
                     <td><strong>South Dakota</strong></td>
-                    <td class="cases-cell">1</td>
-                    <td class="county-cell">1</td>
-                    <td class="status-cell">⚠️ Active</td>
+                    <td class="cases-cell">0</td>
+                    <td class="county-cell">0</td>
+                    <td class="status-cell">✓ No cases</td>
                 </tr>
             
                 </tbody>
@@ -356,7 +356,7 @@
     </div>
 
     <div class="last-updated">
-        Last updated: 2026-08-08 | Cases older than 6 weeks are automatically removed | Data: state health departments
+        Last updated: 2026-08-11 | Cases older than 6 weeks are automatically removed | Data: state health departments
     </div>
 
     <!-- Leaflet JavaScript -->
@@ -364,21 +364,7 @@
 
     <script>
         // Outbreak data embedded at build time
-        const outbreakData = [
-        {
-                "county": "Edmunds",
-                "state": "SD",
-                "lat": 45.4163408,
-                "lon": -99.2220208,
-                "cases": 1,
-                "color": "#ffffcc",
-                "fillOpacity": 0.7,
-                "radius": 8,
-                "display_status": "active",
-                "popup_text": "1 case",
-                "total_cases": 1
-        }
-];
+        const outbreakData = [];
 
         // Initialize map centered on upper Midwest
         const map = L.map('map').setView([46.5, -93.5], 5);
