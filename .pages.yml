@@ -1,7 +1,7 @@
 # Pages CMS configuration — https://pagescms.org
-# Powers the browser-based blog editor at https://app.pagescms.org
+# Browser editor for the IRL blog at https://app.pagescms.org
 # Sign in there with the GitHub account that owns this repo, authorize it,
-# and you'll get a "Blog posts" collection with a New-post form + image upload.
+# then use the "IRL" collection (New entry + image upload).
 
 media:
   input: static/uploads   # where uploaded images are stored in the repo
@@ -12,26 +12,18 @@ content:
     label: IRL
     type: collection
     path: content/posts
-    filename: "{fields.title}.md"
-    view:
-      fields:
-        - title
-        - date
+    filename: "{primary}.md"
+    exclude: ["_index.md"]
     fields:
       - name: title
         label: Title
         type: string
-        required: true
       - name: date
         label: Date
         type: date
-        options:
-          format: yyyy-MM-dd
-        required: true
       - name: draft
         label: Hide from site (draft)
         type: boolean
-        default: false
       - name: summary
         label: Summary (shown on the homepage card)
         type: text
@@ -44,9 +36,6 @@ content:
             type: image
           - name: alt
             label: Alt text
-            type: string
-          - name: caption
-            label: Caption
             type: string
       - name: body
         label: Post
