@@ -35,7 +35,7 @@ menus:
     - name: "Home"
       url: "/"
       weight: 10
-    - name: "Posts"
+    - name: "Blog"
       url: "/posts/"
       weight: 20
     - name: "Models"
@@ -55,7 +55,7 @@ params:
   title: "LoonTracks"
   description: "Probability models and data analysis for the upper midwest"
   keywords: ["probability models", "data analysis", "forecasting", "statistics", "Minnesota", "wildlife"]
-  author: "Daniel Winings"
+  author: "wis.cur"
 
   # Theme appearance
   defaultTheme: "light"
@@ -166,10 +166,6 @@ security:
 
 # Caching for build performance
 caches:
-  getjson:
-    maxAge: "10s"
-  getcsv:
-    maxAge: "10s"
   images:
     maxAge: "1h"
   assets:
