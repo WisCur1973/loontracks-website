@@ -1,5 +1,5 @@
 ---
-title: "Blog"
+title: "IRL"
 description: "Field notes, data, and forecasts from the upper midwest."
 ---
 

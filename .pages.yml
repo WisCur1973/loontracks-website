@@ -9,7 +9,7 @@ media:
 
 content:
   - name: posts
-    label: Blog posts
+    label: IRL
     type: collection
     path: content/posts
     filename: "{fields.title}.md"
