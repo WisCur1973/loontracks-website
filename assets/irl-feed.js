@@ -53,7 +53,7 @@
 
   function card(item) {
     var f = fields(item);
-    return '<a class="blog-card" href="/posts/">' +
+    return '<a class="blog-card" href="https://wiscur.micro.blog" target="_blank" rel="noopener">' +
       '<div class="blog-card-head">' +
         '<div class="blog-card-kicker">Math: IRL</div>' +
         '<div class="blog-card-title">' + esc(f.title) + '</div>' +
