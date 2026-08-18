@@ -53,11 +53,13 @@
 
   function card(item) {
     var f = fields(item);
-    return '<a class="blog-card" href="' + esc(f.url) + '" target="_blank" rel="noopener">' +
-      (f.img ? '<div class="blog-card-thumb" style="background-image:url(\'' + esc(f.img) + '\')"></div>' : "") +
-      '<div class="blog-card-body">' +
+    return '<a class="blog-card" href="/posts/">' +
+      '<div class="blog-card-head">' +
         '<div class="blog-card-kicker">Math: IRL</div>' +
         '<div class="blog-card-title">' + esc(f.title) + '</div>' +
+      '</div>' +
+      (f.img ? '<div class="blog-card-thumb" style="background-image:url(\'' + esc(f.img) + '\')"></div>' : "") +
+      '<div class="blog-card-body">' +
         (f.date ? '<div class="blog-card-date">' + esc(f.date) + '</div>' : "") +
         (f.excerpt ? '<div class="blog-card-summary">' + esc(f.excerpt) + '</div>' : "") +
       '</div>' +

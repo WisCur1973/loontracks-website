@@ -35,9 +35,11 @@ menus:
     - name: "Home"
       url: "/"
       weight: 10
-    - name: "Math: IRL"
-      url: "/posts/"
-      weight: 20
+    # Blog nav link removed per request — the blog is featured in the homepage
+    # panel (which links to /posts/). Uncomment to restore a top-nav link.
+    # - name: "Math: IRL"
+    #   url: "/posts/"
+    #   weight: 20
     - name: "Models"
       url: "/models/"
       weight: 30

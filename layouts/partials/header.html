@@ -42,7 +42,7 @@
         {{- $currentPage := . }}
         <ul id="menu" style="position: absolute; top: 0; right: 0; margin: 0; padding: 0;">
             {{- range site.Menus.main }}
-            {{- if or (eq .Name "Math: IRL") (eq .Name "About") }}
+            {{- if (eq .Name "About") }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url:= $currentPage.Permalink | absLangURL }}
             {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}

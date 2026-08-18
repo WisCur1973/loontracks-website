@@ -191,11 +191,18 @@
     flex-shrink: 0;
 }
 
+.post-content .blog-card-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px 12px;
+}
+
 .post-content .blog-card-body {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    padding: 16px 18px 18px;
+    padding: 12px 18px 18px;
     flex: 1;
     min-height: 0;
 }
