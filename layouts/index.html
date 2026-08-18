@@ -135,6 +135,7 @@
     if (!reduce) start();
   })();
   </script>
-  <script src="/irl-feed.js"></script>
+  {{- $irl := resources.Get "irl-feed.js" | fingerprint }}
+  <script src="{{ $irl.RelPermalink }}"></script>
 </div>
 {{- end }}

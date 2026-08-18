@@ -16,5 +16,6 @@
     <a href="https://wiscur.micro.blog/" target="_blank" rel="noopener">See the full blog on Micro.blog →</a>
   </p>
 </div>
-<script src="/irl-feed.js"></script>
+{{- $irl := resources.Get "irl-feed.js" | fingerprint }}
+<script src="{{ $irl.RelPermalink }}"></script>
 {{- end }}
