@@ -1,6 +1,6 @@
 baseURL: 'https://loontracks.com'
 languageCode: 'en-us'
-title: 'LoonTracks: Probability Models for the Upper Midwest'
+title: 'LoonTracks: Evidence and Estimates from the Upper Midwest'
 theme: 'PaperMod'
 
 # Performance and build optimizations
