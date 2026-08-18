@@ -2,12 +2,14 @@
 
 # Clean URL redirects
 /index.html  /  301
-/posts/index.html  /posts/  301
 /models/index.html  /models/  301
 /about/index.html  /about/  301
 
-# Legacy redirects (if any old URLs need redirecting)
-/blog/*  /posts/:splat  301
+# Blog lives on Micro.blog now — send the old on-site blog paths there.
+/posts      https://wiscur.micro.blog/  302
+/posts/*    https://wiscur.micro.blog/  302
+/blog       https://wiscur.micro.blog/  302
+/blog/*     https://wiscur.micro.blog/  302
 
 # WWW to non-WWW redirect (Cloudflare Pages handles HTTPS automatically)
 /www/*  /:splat  301

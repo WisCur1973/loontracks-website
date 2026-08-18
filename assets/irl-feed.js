@@ -1,16 +1,15 @@
-/* irl-feed.js — pulls the latest IRL posts from Micro.blog and renders them.
+/* irl-feed.js — pulls the latest IRL post from Micro.blog and renders it.
  *
  * Runs entirely in the visitor's browser and reads wiscur.micro.blog/feed.json
- * (which sends Access-Control-Allow-Origin: *), so new posts show up on
- * loontracks with no rebuild. Populates #irl-latest (homepage panel, newest
- * post) and/or #irl-list (the IRL page, recent posts). If the feed can't be
- * reached, the fallback links already in those containers are left in place.
+ * (which sends Access-Control-Allow-Origin: *), so a new post shows up on
+ * loontracks with no rebuild. Populates #irl-latest (the homepage panel card,
+ * newest post). If the feed can't be reached, the fallback link already in
+ * that container is left in place.
  */
 (function () {
   var FEED = "https://wiscur.micro.blog/feed.json";
   var latestEl = document.getElementById("irl-latest");
-  var listEl = document.getElementById("irl-list");
-  if (!latestEl && !listEl) return;
+  if (!latestEl) return;
 
   function parse(html) {
     return new DOMParser().parseFromString(html || "", "text/html");
@@ -43,10 +42,9 @@
     var text = textFromHtml(item.content_html);
     var hasTitle = !!(item.title || "").trim();
     return {
-      url: item.url,
       title: hasTitle ? item.title.trim() : (truncate(text, 70) || "Untitled post"),
       date: fmtDate(item.date_published),
-      excerpt: hasTitle ? truncate(text, 170) : truncate(text, 170),
+      excerpt: truncate(text, 170),
       img: imageFromHtml(item.content_html)
     };
   }
@@ -66,25 +64,12 @@
     '</a>';
   }
 
-  function row(item) {
-    var f = fields(item);
-    return '<a class="irl-row" href="' + esc(f.url) + '" target="_blank" rel="noopener">' +
-      (f.img ? '<div class="irl-row-thumb" style="background-image:url(\'' + esc(f.img) + '\')"></div>' : "") +
-      '<div class="irl-row-body">' +
-        '<div class="irl-row-title">' + esc(f.title) + '</div>' +
-        (f.date ? '<div class="irl-row-date">' + esc(f.date) + '</div>' : "") +
-        (f.excerpt ? '<div class="irl-row-summary">' + esc(f.excerpt) + '</div>' : "") +
-      '</div>' +
-    '</a>';
-  }
-
   fetch(FEED, { cache: "no-store" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (feed) {
       var items = feed.items || [];
       if (!items.length) return;
-      if (latestEl) latestEl.innerHTML = card(items[0]);
-      if (listEl) listEl.innerHTML = items.slice(0, 10).map(row).join("");
+      latestEl.innerHTML = card(items[0]);
     })
-    .catch(function () { /* leave the fallback links in place */ });
+    .catch(function () { /* leave the fallback link in place */ });
 })();
