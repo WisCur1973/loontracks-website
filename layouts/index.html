@@ -12,7 +12,7 @@
     <div class="left-column">
       <!-- MN Iron Industry Category Card -->
       <div class="category-card">
-        <div class="category-header">MN Iron Industry</div>
+        <div class="category-header">MN Iron Forecasts</div>
         <div class="category-grid">
           <a href="/iron-mine/" class="category-tile iron-mine">Mine Activity</a>
           <a href="/iron-port/" class="category-tile iron-port">Port Activity</a>
@@ -21,7 +21,7 @@
 
       <!-- Elections Category Card -->
       <div class="category-card">
-        <div class="category-header">Elections</div>
+        <div class="category-header">Election Probabilities</div>
         <div class="category-grid elections-grid">
           <a href="/congress/" class="category-tile congress">Congress</a>
           <a href="/governor/" class="category-tile governor">Governor</a>
@@ -76,42 +76,23 @@
     <!-- Right Column -->
     <div class="right-column">
       <div class="category-card">
-        <div class="category-header">Public Health</div>
+        <div class="category-header">Public Health Data</div>
         <div class="category-grid">
           <a href="/measles/" class="category-tile measles">Measles</a>
           <a href="/flu-season/" class="category-tile flu-season">Flu Season</a>
         </div>
       </div>
 
-      {{/* Latest blog post, or a Coming Soon placeholder when there are none. */}}
-      {{- $posts := where site.RegularPages "Section" "posts" }}
-      {{- with $posts }}
-        {{- $latest := index . 0 }}
-        <a class="blog-card" href="{{ $latest.RelPermalink }}">
-          {{- $img := "" }}
-          {{- with $latest.Params.cover }}
-            {{- with .image }}
-              {{/* Works for both a central /uploads/… path (Pages CMS) and a bundled page resource. */}}
-              {{- $res := $latest.Resources.GetMatch . }}
-              {{- if $res }}{{ $img = $res.RelPermalink }}{{ else }}{{ $img = . | relURL }}{{ end }}
-            {{- end }}
-          {{- end }}
-          {{- with $img }}
-          <div class="blog-card-thumb" style="background-image:url('{{ . }}')"></div>
-          {{- end }}
+      {{/* Latest IRL post, pulled live from Micro.blog (wiscur.micro.blog) by
+           /irl-feed.js. If the feed can't be reached, this fallback link stays. */}}
+      <div id="irl-latest">
+        <a class="blog-card blog-card--fallback" href="https://wiscur.micro.blog/" target="_blank" rel="noopener">
           <div class="blog-card-body">
-            <div class="blog-card-kicker">IRL</div>
-            <div class="blog-card-title">{{ $latest.Title }}</div>
-            <div class="blog-card-date">{{ $latest.Date.Format "January 2, 2006" }}</div>
-            <div class="blog-card-summary">{{ $latest.Summary | plainify | truncate 150 }}</div>
-            {{- if gt (len $posts) 1 }}
-            <div class="blog-card-more">More posts →</div>
-            {{- end }}
+            <div class="blog-card-kicker">Math: IRL</div>
+            <div class="blog-card-title">Read the latest on Math: IRL →</div>
           </div>
         </a>
-      {{- else }}
-        <div class="coming-soon-tile">Coming Soon</div>
-      {{- end }}
+      </div>
     </div>
   </div>
 
@@ -154,5 +135,6 @@
     if (!reduce) start();
   })();
   </script>
+  <script src="/irl-feed.js"></script>
 </div>
 {{- end }}

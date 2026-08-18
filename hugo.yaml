@@ -35,7 +35,7 @@ menus:
     - name: "Home"
       url: "/"
       weight: 10
-    - name: "IRL"
+    - name: "Math: IRL"
       url: "/posts/"
       weight: 20
     - name: "Models"

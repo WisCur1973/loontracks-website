@@ -1,5 +1,5 @@
 ---
-title: "IRL"
+title: "Math: IRL"
 description: "Field notes, data, and forecasts from the upper midwest."
 ---
 
