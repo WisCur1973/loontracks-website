@@ -19,10 +19,12 @@
   }
   function imageFromHtml(html) {
     var doc = parse(html);
+    // Only accept real URLs — guards against placeholder/broken poster values.
+    function ok(u) { return !!u && (/^https?:\/\//.test(u) || u.charAt(0) === "/"); }
     var img = doc.querySelector("img");
-    if (img && img.getAttribute("src")) return img.getAttribute("src");
+    if (img && ok(img.getAttribute("src"))) return img.getAttribute("src");
     var vid = doc.querySelector("video[poster]");
-    if (vid) return vid.getAttribute("poster");
+    if (vid && ok(vid.getAttribute("poster"))) return vid.getAttribute("poster");
     return "";
   }
   function truncate(s, n) {
