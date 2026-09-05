@@ -171,7 +171,7 @@
                 <div id="countdown-timer" class="countdown-text">Loading...</div>
             </div>
             <h1 id="main-title" class="main-title">2026 MN Port Forecast</h1>
-            <div class="subtitle">Current vs Historical Performance</div>
+            <div class="subtitle">Forecast vs. 2007–2025 seasonal distribution</div>
         </div>
 
         <div class="gauges-grid">
@@ -235,29 +235,33 @@
         <div class="total-forecast">
             <div class="total-text">Total System Forecast: 30.2 Million Long Tons</div>
             <div class="total-range">80% Range: 23.1 - 37.3 Million Long Tons (P10-P90)</div>
+            <div class="total-range" id="total-percentile" style="font-weight:600; color:#4b5563; margin-top:8px;"></div>
         </div>
 
         <div class="legend">
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #ef4444;"></div>
-                <div class="legend-text">Critical (&lt;20%)</div>
+                <div class="legend-text">Bottom 20% (weakest seasons)</div>
             </div>
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #f97316;"></div>
-                <div class="legend-text">Concerning (20-40%)</div>
+                <div class="legend-text">20th&ndash;40th percentile</div>
             </div>
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #eab308;"></div>
-                <div class="legend-text">Average (40-60%)</div>
+                <div class="legend-text">40th&ndash;60th (typical)</div>
             </div>
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #84cc16;"></div>
-                <div class="legend-text">Good (60-80%)</div>
+                <div class="legend-text">60th&ndash;80th percentile</div>
             </div>
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #22c55e;"></div>
-                <div class="legend-text">Excellent (80-100%)</div>
+                <div class="legend-text">Top 20% (strongest seasons)</div>
             </div>
+        </div>
+        <div style="text-align:center; font-size:11px; color:#6b7280; margin-bottom:20px;">
+            Needle = forecast's rank within that port's 2007&ndash;2025 seasonal totals. Dial ends = worst and best years on record.
         </div>
 
         <div class="footer" id="timestamp">
@@ -266,36 +270,66 @@
     </div>
 
     <script>
-        // Port data - Historical ranges for needle positioning
+        // Port data - historical seasonal totals (M LT, 2007-2025) drive the
+        // percentile needle. `current` = forecast P50; `mean` = 19-yr average.
+        // Regenerated each model run by monte_carlo_simulator.update_port_html().
         const ports = [
             {
                 id: 'duluth-gauge',
                 current: 6.836,
-                min: 5.0,
-                max: 8.9
+                mean: 7.46,
+                hist: [6.685, 7.913, 5.456, 6.449, 7.474, 8.318, 8.045, 8.792, 5.087, 5.043, 6.659, 8.542, 8.081, 8.168, 8.911, 7.544, 8.916, 8.072, 7.523]
             },
             {
                 id: 'superior-gauge',
                 current: 7.729,
-                min: 2.6,
-                max: 13.1
+                mean: 9.89,
+                hist: [11.984, 9.904, 2.61, 7.852, 9.366, 9.246, 8.275, 8.922, 8.938, 9.588, 13.059, 13.001, 11.755, 7.07, 12.114, 11.629, 12.371, 11.323, 8.975]
             },
             {
                 id: 'two-harbors-gauge',
                 current: 12.043,
-                min: 6.5,
-                max: 17.7
+                mean: 14.93,
+                hist: [13.794, 12.888, 6.901, 14.55, 16.173, 16.835, 16.85, 16.409, 15.943, 15.98, 17.693, 17.167, 16.761, 13.92, 14.873, 14.127, 15.02, 15.128, 12.742]
             },
             {
                 id: 'silver-bay-gauge',
                 current: 3.526,
-                min: 1.7,
-                max: 6.7
+                mean: 4.94,
+                hist: [5.219, 6.266, 3.669, 6.739, 6.106, 5.97, 4.564, 5.699, 4.368, 3.624, 5.928, 6.395, 5.86, 4.263, 5.909, 1.686, 3.557, 4.239, 3.836]
             }
         ];
 
-        // Colors: RED on LEFT (low), GREEN on RIGHT (high)
+        // System total: forecast P50, 19-yr mean, and the historical total series
+        // (sum of the four ports per year). Text only — no gauge for the total.
+        const totalCurrent = 30.199;
+        const totalMean = 37.227;
+        const totalHist = [37.682, 36.971, 18.636, 35.591, 39.119, 40.369, 37.734, 39.822, 34.335, 34.236, 43.338, 45.105, 42.457, 33.421, 41.808, 34.986, 39.864, 38.763, 33.077];
+
+        // Colors: RED on LEFT (low percentile), GREEN on RIGHT (high percentile)
         const zoneColors = ['#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e'];
+
+        // Percentile rank of x within a sample, linearly interpolated between the
+        // two bracketing observations. Endpoints map exactly to min (0) and max (1),
+        // so the dial ends stay the port's worst/best year on record. Outlier-robust:
+        // one crash year is just one low point, not an anchor that stretches the scale.
+        function percentileOf(hist, x) {
+            const s = [...hist].sort((a, b) => a - b);
+            const n = s.length;
+            if (n === 0) return 0.5;
+            if (x <= s[0]) return 0;
+            if (x >= s[n - 1]) return 1;
+            let i = 0;
+            while (i < n - 1 && s[i + 1] <= x) i++;
+            const lo = s[i], hi = s[i + 1];
+            const frac = hi > lo ? (x - lo) / (hi - lo) : 0;
+            return (i + frac) / (n - 1);
+        }
+
+        function ordinal(n) {
+            const s = ['th', 'st', 'nd', 'rd'], v = n % 100;
+            return n + (s[(v - 20) % 10] || s[v] || s[0]);
+        }
 
         function drawGauge(port) {
             const svg = document.getElementById(port.id);
@@ -303,8 +337,8 @@
             const centerY = 100;
             const radius = 80;
 
-            // Calculate percentage within historical range
-            const percentage = (port.current - port.min) / (port.max - port.min);
+            // Needle position = forecast's percentile within this port's own history
+            const percentage = percentileOf(port.hist, port.current);
 
             // Create one continuous gauge arc: RED on LEFT, GREEN on RIGHT
             const zonePercentages = [0, 0.2, 0.4, 0.6, 0.8, 1.0];
@@ -360,11 +394,13 @@
             needle.setAttribute('stroke-linecap', 'round');
             svg.appendChild(needle);
 
-            // Update the percentage text dynamically
+            // Caption: intuitive magnitude (% of the 19-yr average) plus the
+            // historical percentile that the needle/colour band represents.
             const gaugeContainer = svg.closest('.gauge-container');
             const percentageDiv = gaugeContainer.querySelector('.gauge-percentage');
-            const pct = Math.round(percentage * 100);
-            percentageDiv.textContent = pct + '% of Historical Range';
+            const pctOfTypical = Math.round((port.current / port.mean) * 100);
+            const rank = Math.round(percentage * 100);
+            percentageDiv.textContent = pctOfTypical + '% of typical · ' + ordinal(rank) + ' percentile';
 
             // Center circle
             const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -377,6 +413,15 @@
 
         // Draw all gauges
         ports.forEach(drawGauge);
+
+        // System total: percentile text only (no gauge)
+        (function () {
+            const el = document.getElementById('total-percentile');
+            if (!el) return;
+            const p = percentileOf(totalHist, totalCurrent);
+            const pctOfTypical = Math.round((totalCurrent / totalMean) * 100);
+            el.textContent = pctOfTypical + '% of typical · ' + ordinal(Math.round(p * 100)) + ' percentile (2007–2025 seasons)';
+        })();
 
         // Countdown functionality
         function updateCountdown() {
@@ -402,13 +447,13 @@
                 countdownTimer.textContent = `${days} Days, ${hours.toString().padStart(2, '0')} Hours, ${minutes.toString().padStart(2, '0')} Minutes, ${seconds.toString().padStart(2, '0')} Seconds`;
                 countdownTimer.className = 'countdown-text';
                 mainTitle.textContent = '2026 MN Port Forecast';
-                subtitle.textContent = 'Current vs Historical Performance';
+                subtitle.textContent = 'Forecast vs. 2007–2025 seasonal distribution';
             } else {
                 countdownTitle.textContent = 'Shipping Season Active';
                 countdownTitle.className = 'countdown-title countdown-active';
                 countdownTimer.textContent = '';
                 mainTitle.textContent = '2026 Shipping Season Forecast';
-                subtitle.textContent = 'Current Forecast vs Historical Performance';
+                subtitle.textContent = 'Forecast vs. 2007–2025 seasonal distribution';
             }
         }
 
