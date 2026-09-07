@@ -24,17 +24,17 @@
         .stat-box { text-align: center; }
         .stat-number { font-size: 2.2em; font-weight: 700; color: #dc3545; margin-bottom: 5px; }
         .stat-label { font-size: 0.85em; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
-        .trendbox { display: flex; align-items: center; justify-content: center; gap: 24px;
-            flex-wrap: wrap; max-width: 640px; margin: 16px auto 0; padding-top: 16px;
+        .trendbox { display: flex; align-items: center; justify-content: center; gap: 30px;
+            flex-wrap: wrap; max-width: 1200px; margin: 16px auto 0; padding-top: 16px;
             border-top: 1px solid #eef0f2; text-align: left; }
-        .trend-read { flex: 0 1 210px; }
+        .trend-read { flex: 0 0 300px; }
         .trend-hl { font-size: 1rem; font-weight: 600; color: #343a40; font-variant-numeric: tabular-nums; }
         .trend-hl b { color: #dc3545; }
         .trend-sub { color: #dc3545; font-weight: 600; font-size: 0.85em; margin-top: 3px; }
         .trend-ctx { color: #6c757d; font-size: 0.82em; margin-top: 2px; font-variant-numeric: tabular-nums; }
         .trend-prov { color: #adb5bd; font-size: 0.72em; margin-top: 7px; }
-        .trend-chart { position: relative; flex: 1 1 300px; min-width: 260px; }
-        .trend-chart svg { display: block; width: 100%; max-width: 340px; margin: 0 auto; }
+        .trend-chart { position: relative; flex: 1 1 560px; min-width: 300px; }
+        .trend-chart svg { display: block; width: 100%; height: auto; margin: 0 auto; }
         .tr-tip { position: absolute; top: -6px; transform: translateX(-50%); background: #343a40;
             color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px; pointer-events: none;
             opacity: 0; white-space: nowrap; transition: opacity .1s; font-variant-numeric: tabular-nums; }
@@ -282,7 +282,7 @@
             const s = t.series, n = s.length;
             const cone = DATA.meta.cone || null;   // 4-week projection, if available
             const kf = cone ? cone.median.length : 0;
-            const W = 320, H = 76, L = 6, R = 34, TP = 14, BP = 16;
+            const W = 800, H = 190, L = 16, R = 74, TP = 26, BP = 34;
             const coneMax = cone ? Math.max.apply(null, cone.hi90) : 0;
             const maxY = Math.max(t.peak, coneMax, 10);
             const px = function(i) { return L + (i / (n - 1 + kf)) * (W - L - R); };
@@ -297,8 +297,8 @@
             }
             const solid = n - 2;  // final point provisional (dashed)
             svg.appendChild(mk('line', {x1: L, y1: py(t.median), x2: W - R, y2: py(t.median),
-                stroke: '#ced4da', 'stroke-width': 1, 'stroke-dasharray': '3 3'}));
-            const ml = mk('text', {x: W - R + 3, y: py(t.median) + 3, 'font-size': 8, fill: '#adb5bd'});
+                stroke: '#ced4da', 'stroke-width': 1.5, 'stroke-dasharray': '5 5'}));
+            const ml = mk('text', {x: W - R + 6, y: py(t.median) + 4, 'font-size': 13, fill: '#adb5bd'});
             ml.textContent = 'med'; svg.appendChild(ml);
             let ap = 'M ' + px(0) + ' ' + (H - BP);
             for (let i = 0; i <= solid; i++) ap += ' L ' + px(i) + ' ' + py(s[i][1]);
@@ -306,14 +306,14 @@
             svg.appendChild(mk('path', {d: ap, fill: '#dc3545', 'fill-opacity': 0.09}));
             let lp = '';
             for (let i = 0; i <= solid; i++) lp += (i ? 'L' : 'M') + px(i) + ' ' + py(s[i][1]) + ' ';
-            svg.appendChild(mk('path', {d: lp, fill: 'none', stroke: '#dc3545', 'stroke-width': 2,
+            svg.appendChild(mk('path', {d: lp, fill: 'none', stroke: '#dc3545', 'stroke-width': 2.6,
                 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
             let pp = 'M ' + px(solid) + ' ' + py(s[solid][1]);
             for (let i = solid + 1; i < n; i++) pp += ' L ' + px(i) + ' ' + py(s[i][1]);
-            svg.appendChild(mk('path', {d: pp, fill: 'none', stroke: '#dc3545', 'stroke-width': 2,
-                'stroke-dasharray': '2 2', 'stroke-linecap': 'round'}));
-            svg.appendChild(mk('circle', {cx: px(n - 1), cy: py(s[n - 1][1]), r: 4,
-                fill: '#dc3545', stroke: '#fff', 'stroke-width': 2}));
+            svg.appendChild(mk('path', {d: pp, fill: 'none', stroke: '#dc3545', 'stroke-width': 2.6,
+                'stroke-dasharray': '4 4', 'stroke-linecap': 'round'}));
+            svg.appendChild(mk('circle', {cx: px(n - 1), cy: py(s[n - 1][1]), r: 6,
+                fill: '#dc3545', stroke: '#fff', 'stroke-width': 2.5}));
 
             // 4-week projection cone: known weeks roll off, forecast weeks roll in
             if (cone) {
@@ -331,11 +331,11 @@
                 let mp = 'M ' + x0 + ' ' + y0;
                 for (let h = 0; h < kf; h++) mp += ' L ' + fx(h) + ' ' + py(cone.median[h]);
                 svg.appendChild(mk('path', {d: mp, fill: 'none', stroke: '#dc3545',
-                    'stroke-width': 2, 'stroke-dasharray': '2 2', 'stroke-linecap': 'round'}));
+                    'stroke-width': 2.6, 'stroke-dasharray': '4 4', 'stroke-linecap': 'round'}));
                 svg.appendChild(mk('line', {x1: x0, y1: TP, x2: x0, y2: H - BP,
-                    stroke: '#ced4da', 'stroke-width': 1, 'stroke-dasharray': '2 2'}));
+                    stroke: '#ced4da', 'stroke-width': 1.5, 'stroke-dasharray': '4 4'}));
                 svg.appendChild(mk('circle', {cx: fx(kf - 1), cy: py(cone.median[kf - 1]),
-                    r: 3, fill: '#fff', stroke: '#dc3545', 'stroke-width': 1.5}));
+                    r: 5, fill: '#fff', stroke: '#dc3545', 'stroke-width': 2.5}));
             }
             const arrow = t.direction.indexOf('up') === 0 ? '\u25B2'
                 : (t.direction.indexOf('down') === 0 ? '\u25BC' : '\u25A0');
@@ -356,7 +356,7 @@
                     'uncertainty &mdash; not a prediction.';
             }
             const tip = document.getElementById('tr-tip');
-            const hl = mk('circle', {r: 3.5, fill: '#dc3545', stroke: '#fff', 'stroke-width': 1.5, opacity: 0});
+            const hl = mk('circle', {r: 5, fill: '#dc3545', stroke: '#fff', 'stroke-width': 2, opacity: 0});
             svg.appendChild(hl);
             svg.appendChild(mk('rect', {x: 0, y: 0, width: W, height: H, fill: 'transparent'}));
             svg.addEventListener('mousemove', function(ev) {
