@@ -301,8 +301,8 @@
             const ml = mk('text', {x: W - R + 6, y: py(t.median) + 4, 'font-size': 13, fill: '#adb5bd'});
             ml.textContent = 'med'; svg.appendChild(ml);
             let ap = 'M ' + px(0) + ' ' + (H - BP);
-            for (let i = 0; i <= solid; i++) ap += ' L ' + px(i) + ' ' + py(s[i][1]);
-            ap += ' L ' + px(solid) + ' ' + (H - BP) + ' Z';
+            for (let i = 0; i < n; i++) ap += ' L ' + px(i) + ' ' + py(s[i][1]);
+            ap += ' L ' + px(n - 1) + ' ' + (H - BP) + ' Z';
             svg.appendChild(mk('path', {d: ap, fill: '#dc3545', 'fill-opacity': 0.09}));
             let lp = '';
             for (let i = 0; i <= solid; i++) lp += (i ? 'L' : 'M') + px(i) + ' ' + py(s[i][1]) + ' ';
