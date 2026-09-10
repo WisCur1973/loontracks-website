@@ -869,8 +869,9 @@
     <div class="section methodology">
         <h3>Methodology</h3>
         <ul>
-            <li><strong>Structural Model (Elastic Net):</strong> dem_share = 48.1 + 0.41 × partisan_lean + 7.1 × incumbency</li>
+            <li><strong>Structural Model (Elastic Net):</strong> dem_share = 48.1 + 0.41 × partisan_lean + 1.1 × generic_ballot + 7.1 × incumbency</li>
             <li><strong>Partisan Lean:</strong> Based on 2022-2024 US House results relative to state average</li>
+            <li><strong>National Environment (Generic Ballot):</strong> Each point of generic-ballot margin (D&minus;R) shifts every district ~1.1 points &mdash; applied to all districts, polled or not.</li>
             <li><strong>Incumbency Bonus:</strong> +7.1 points for incumbent party (trained on 2022-2024 data)</li>
             <li><strong>Open Seats:</strong> Higher uncertainty, no incumbency advantage</li>
             <li><strong>Poll Blending:</strong> Structural 90% at 180+ days → 20% at 7 days</li>
