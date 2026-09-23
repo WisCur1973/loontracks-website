@@ -942,7 +942,7 @@
             &copy; 2026 <a href="https://loontracks.com" target="_blank">Loon Tracks</a>
         </div>
         <div class="footer-meta">
-            Generated 2026-09-23 08:54 | Congressional Forecast System v1.0 | Model rev 2026-08-21
+            Generated 2026-09-23 09:34 | Congressional Forecast System v1.0 | Model rev 2026-08-21
         </div>
     </div>
 
@@ -1013,7 +1013,10 @@
 .trend-end { font-size:11px; font-weight:700; }
 .trend-end.d { fill:#1f5fa8; } .trend-end.r { fill:#c0392b; }
 .trend-focus { stroke:#cbd5e1; stroke-width:1; stroke-dasharray:3 3; }
+.trend-fixline { stroke:#94a3b8; stroke-width:1; stroke-dasharray:4 3; }
+.trend-fixlabel { fill:#94a3b8; font-size:9px; font-weight:600; }
 </style>
+<script>window.CODE_FIX_DATES=["2026-09-23"];</script>
 <script>
 (function(){
   function ready(fn){
@@ -1158,6 +1161,13 @@
       var gx = svg2.append('g').attr('class','trend-xaxis').attr('transform','translate(0,'+(H-m.b)+')')
         .call(d3.axisBottom(x).ticks(Math.min(5, pts.length)).tickFormat(d3.timeFormat('%b %-d')).tickSize(0));
       gx.select('.domain').remove();
+      // "code corrected" markers (input/data fixes, not real race movement)
+      (window.CODE_FIX_DATES||[]).forEach(function(ds){
+        var fdt=parse(ds); if(!fdt) return;
+        var fx=x(fdt); if(fx < m.l || fx > W-m.r) return;
+        svg2.append('line').attr('class','trend-fixline').attr('x1',fx).attr('x2',fx).attr('y1',m.t).attr('y2',H-m.b);
+        svg2.append('text').attr('class','trend-fixlabel').attr('x',fx).attr('y',m.t-3).attr('text-anchor','middle').text('code corrected');
+      });
       var lineD = d3.line().x(function(p){return x(p.date);}).y(function(p){return y(p.d);});
       var lineR = d3.line().x(function(p){return x(p.date);}).y(function(p){return y(p.r);});
       svg2.append('path').datum(pts).attr('fill','none').attr('stroke','#c0392b').attr('stroke-width',2.2).attr('d',lineR);
