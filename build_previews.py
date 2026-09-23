@@ -83,6 +83,35 @@ def extract_maps():
 # `hide` selectors are set display:none before measuring, so detailed tables
 # don't bloat the crop.
 SHOTS = [
+    # Congressional state maps are now interactive D3 SVG (ids #map-MI/MN/WI),
+    # not embedded PNGs -- clip each rendered map + its heading.
+    {
+        "name": "congressional_mi.png",
+        "file": "elections/Congressional_Forecast_latest.html",
+        "width": 1100,
+        "clip": ["#map-MI"],
+        "hide": [],
+        "pad": 16,
+        "top_extra": 46,
+    },
+    {
+        "name": "congressional_mn.png",
+        "file": "elections/Congressional_Forecast_latest.html",
+        "width": 1100,
+        "clip": ["#map-MN"],
+        "hide": [],
+        "pad": 16,
+        "top_extra": 46,
+    },
+    {
+        "name": "congressional_wi.png",
+        "file": "elections/Congressional_Forecast_latest.html",
+        "width": 1100,
+        "clip": ["#map-WI"],
+        "hide": [],
+        "pad": 16,
+        "top_extra": 46,
+    },
     {
         "name": "governor.png",
         "file": "elections/Governor_Forecast_latest.html",
@@ -171,6 +200,22 @@ def run_shots():
                 page.wait_for_timeout(1500)
             page.wait_for_timeout(1800)  # let Chart.js finish animating / fonts settle
 
+            # Single #id target (e.g. the interactive D3 maps, which live far down
+            # the page): use a locator screenshot -- it scrolls the element into
+            # view and captures just it, so below-the-fold clips don't fail.
+            if len(job["clip"]) == 1 and job["clip"][0].startswith("#"):
+                try:
+                    loc = page.locator(job["clip"][0])
+                    loc.scroll_into_view_if_needed(timeout=6000)
+                    page.wait_for_timeout(700)
+                    loc.screenshot(path=str(OUT / job["name"]))
+                    log(f"{job['name']}  (element)")
+                    ok += 1
+                    page.close()
+                    continue
+                except Exception as e:
+                    log(f"WARN {job['name']}: element shot failed ({e}); trying clip")
+
             box = page.evaluate(UNION_JS, [job["clip"], job["hide"]])
             if not box:
                 log(f"WARN {job['name']}: no clip elements matched; full page")
@@ -195,7 +240,7 @@ def run_shots():
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     print("Building homepage carousel previews...", flush=True)
-    extract_maps()
+    # (Congressional maps are now screenshot jobs below, not extracted PNGs.)
     try:
         run_shots()
     except Exception as e:  # never let a preview failure break the publish
