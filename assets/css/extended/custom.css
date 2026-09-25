@@ -292,7 +292,7 @@
 /* Elections grid specific overrides */
 .post-content .category-grid.elections-grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
 }
 
 
@@ -392,6 +392,14 @@
 
 .post-content .wi-leg {
     background: linear-gradient(135deg, #4299e1, #3182ce);
+}
+
+.post-content .pa-leg {
+    background: linear-gradient(135deg, #4fd1c5, #319795);
+}
+
+.post-content .oh-leg {
+    background: linear-gradient(135deg, #7f9cf5, #667eea);
 }
 
 .post-content .measles {

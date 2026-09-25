@@ -91,4 +91,14 @@ body {
     <div class="election-title">Wisconsin Legislature Forecast</div>
     <iframe src="/elections/WI_Legislature_Forecast_latest.html" class="legislature-frame" scrolling="no"></iframe>
   </div>
+
+  <div class="election-section">
+    <div class="election-title">Pennsylvania Legislature Forecast</div>
+    <iframe src="/elections/PA_Legislature_Forecast_latest.html" class="legislature-frame" scrolling="no"></iframe>
+  </div>
+
+  <div class="election-section">
+    <div class="election-title">Ohio Legislature Forecast</div>
+    <iframe src="/elections/OH_Legislature_Forecast_latest.html" class="legislature-frame" scrolling="no"></iframe>
+  </div>
 </div>

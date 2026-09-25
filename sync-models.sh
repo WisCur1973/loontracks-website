@@ -37,10 +37,12 @@ cp "/Users/winin/Desktop/Election Probabilities/"Governor_Forecast_*.html "stati
 cp "/Users/winin/Desktop/Election Probabilities/"MI_Legislature_Forecast_*.html "static/elections/"
 cp "/Users/winin/Desktop/Election Probabilities/"MN_Legislature_Forecast_*.html "static/elections/"
 cp "/Users/winin/Desktop/Election Probabilities/"WI_Legislature_Forecast_*.html "static/elections/"
+cp "/Users/winin/Desktop/Election Probabilities/"PA_Legislature_Forecast_*.html "static/elections/" 2>/dev/null || true
+cp "/Users/winin/Desktop/Election Probabilities/"OH_Legislature_Forecast_*.html "static/elections/" 2>/dev/null || true
 
 # Verify both dated and latest versions exist
 echo "🔍 Verifying election forecast files..."
-latest_files=("Congressional_Forecast_latest.html" "Governor_Forecast_latest.html" "MI_Legislature_Forecast_latest.html" "MN_Legislature_Forecast_latest.html" "WI_Legislature_Forecast_latest.html")
+latest_files=("Congressional_Forecast_latest.html" "Governor_Forecast_latest.html" "MI_Legislature_Forecast_latest.html" "MN_Legislature_Forecast_latest.html" "WI_Legislature_Forecast_latest.html" "PA_Legislature_Forecast_latest.html" "OH_Legislature_Forecast_latest.html")
 for file in "${latest_files[@]}"; do
     if [ -f "static/elections/$file" ]; then
         echo "   ✅ $file"
