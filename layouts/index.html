@@ -7,6 +7,30 @@
   homepage CSS selectors still apply.
 */}}
 <div class="post-content">
+  {{- /* Temporary Election Night banner; hides itself on builds after Nov 10, 2026. */}}
+  {{- if now.Before (time "2026-11-11T00:00:00-06:00") }}
+  <style>
+    .election-banner { display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap; background: #0a1630; color: #fff; border-radius: 12px;
+      padding: 1.25rem 1.5rem; margin: 0 0 1.5rem; text-decoration: none; box-shadow: none; }
+    .election-banner:hover { background: #13254a; }
+    .election-banner .eb-title { font-size: 1.6rem; font-weight: 700; line-height: 1.2; }
+    .election-banner .eb-sub { font-size: 1rem; opacity: .85; margin-top: .25rem; }
+    .election-banner .eb-cta { background: #fff; color: #0a1630; font-weight: 700; font-size: 1.1rem;
+      padding: .7rem 1.3rem; border-radius: 8px; white-space: nowrap; }
+    @media (max-width: 600px) {
+      .election-banner { flex-direction: column; align-items: stretch; text-align: center; }
+      .election-banner .eb-title { font-size: 1.3rem; }
+    }
+  </style>
+  <a class="election-banner" href="/election-night/">
+    <div>
+      <div class="eb-title">🗳️ Election Night 2026 — Live Results</div>
+      <div class="eb-sub">SD8 DFL results, updated every 20 seconds. Live after polls close at 8:00 PM Central, Tuesday, Nov 3.</div>
+    </div>
+    <span class="eb-cta">Follow live →</span>
+  </a>
+  {{- end }}
   <div class="homepage-container">
     <!-- Left Column -->
     <div class="left-column">
