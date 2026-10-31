@@ -13,3 +13,6 @@
 
 # WWW to non-WWW redirect (Cloudflare Pages handles HTTPS automatically)
 /www/*  /:splat  301
+
+# Election night short link (temporary, Nov 2026)
+/election  https://live.loontracks.com/  302
