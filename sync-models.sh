@@ -28,6 +28,14 @@ cp "/Users/winin/Desktop/MMR mapping files/measles_dashboard_multistate.html" \
    "static/static-dashboards/measles_dashboard_multistate.html"
 echo "   - static/static-dashboards/measles_dashboard_multistate.html"
 
+# ELECTIONS FROZEN (2026-11-13): the 2026 cycle is over and the forecast is frozen for
+# evaluation (Elections/frozen_forecast_2026-11-03/). Other dashboards' publish runs call
+# this script, which used to re-copy the election pages and re-render the (election-only)
+# carousel previews, committing byte-noise PNG changes. Set to 0 to resume for 2028.
+ELECTIONS_FROZEN=1
+if [ "$ELECTIONS_FROZEN" = "1" ]; then
+echo "🗳️  Election forecasts FROZEN — skipping election copy + preview rebuild"
+else
 echo "🗳️  Syncing election forecasts..."
 cp "/Users/winin/Desktop/Election Probabilities/"Congressional_Forecast_*.html "static/elections/"
 cp "/Users/winin/Desktop/Election Probabilities/"Governor_Forecast_*.html "static/elections/"
@@ -58,6 +66,7 @@ echo "🖼️  Building homepage carousel previews..."
 PYBIN="/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 [ -x "$PYBIN" ] || PYBIN="python3"
 "$PYBIN" build_previews.py || echo "   ⚠️  preview build failed — keeping existing previews"
+fi  # end ELECTIONS_FROZEN gate
 
 echo "✅ All model files synced successfully!"
 echo "📁 Files copied to:"
